@@ -8,15 +8,15 @@
 [![Biome](https://img.shields.io/badge/Biome-2.4-39B420?style=flat&logo=biome)](https://biomejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat&logo=tailwindcss)](https://tailwindcss.com/)
 
-## Template Next App
+## NexTemplate
 
-Opinionated Next.js starter with production-grade tooling.
+Production-ready Next.js 16 starter — clone, build, ship.
 
 </div>
 
 ## Overview
 
-A batteries-included Next.js 16 template featuring TypeScript strict mode, Tailwind CSS v4, shadcn/ui, Biome, semantic-release, and GitHub Actions CI/CD — ready for rapid development.
+Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode, Tailwind CSS v4, shadcn/ui, Biome, semantic-release, and GitHub Actions CI/CD — all wired together and battle-tested. Your next project starts here.
 
 ## Tech Stack
 

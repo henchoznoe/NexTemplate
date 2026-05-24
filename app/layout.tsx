@@ -11,12 +11,18 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : 'http://localhost:3000'
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: 'Template Next App',
-    template: '%s | Template Next App',
+    default: 'NexTemplate',
+    template: '%s | NexTemplate',
   },
-  description: 'A Next.js starter template with opinionated tooling.',
+  description:
+    'Production-ready Next.js 16 starter — TypeScript strict, Tailwind v4, shadcn/ui, Biome, semantic-release, and CI/CD baked in. Clone, build, ship.',
 }
 
 export default function RootLayout({ children }: PropsWithChildren) {

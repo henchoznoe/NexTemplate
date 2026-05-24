@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 
-export default function robots(): MetadataRoute.Robots {
+const robots = (): MetadataRoute.Robots => {
   const isProduction = process.env.VERCEL_ENV === 'production'
 
   if (!isProduction) {
@@ -16,3 +16,5 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: `${baseUrl}/sitemap.xml`,
   }
 }
+
+export default robots
