@@ -1,6 +1,6 @@
 <div align="center">
 
-[![CI](https://github.com/henchoznoe/template-next-app/actions/workflows/ci.yml/badge.svg)](https://github.com/henchoznoe/template-next-app/actions/workflows/ci.yml)
+[![CI](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml/badge.svg)](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat&logo=next.js)](https://nextjs.org/)
@@ -8,15 +8,15 @@
 [![Biome](https://img.shields.io/badge/Biome-2.4-39B420?style=flat&logo=biome)](https://biomejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat&logo=tailwindcss)](https://tailwindcss.com/)
 
-## Template Next App
+## NexTemplate
 
-Opinionated Next.js starter with production-grade tooling.
+Production-ready Next.js 16 starter — clone, build, ship.
 
 </div>
 
 ## Overview
 
-A batteries-included Next.js 16 template featuring TypeScript strict mode, Tailwind CSS v4, shadcn/ui, Biome, semantic-release, and GitHub Actions CI/CD — ready for rapid development.
+Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode, Tailwind CSS v4, shadcn/ui, Biome, semantic-release, and GitHub Actions CI/CD — all wired together and battle-tested. Your next project starts here.
 
 ## Tech Stack
 
@@ -35,7 +35,7 @@ A batteries-included Next.js 16 template featuring TypeScript strict mode, Tailw
 ## Project Structure
 
 ```
-template-next-app/
+NexTemplate/
 ├── app/                    # Next.js App Router pages and layouts
 │   ├── globals.css         # Tailwind v4 theme (light + dark)
 │   ├── layout.tsx          # Root layout with font and analytics
@@ -47,9 +47,18 @@ template-next-app/
 │   ├── footer.tsx          # Footer with version display
 │   └── ui/                 # shadcn/ui components
 ├── lib/
+│   ├── actions/            # Server Actions (mutations)
+│   ├── config/             # Constants and configuration
+│   ├── core/               # Infrastructure (auth, db, env, logger)
 │   ├── hooks/              # Custom React hooks
-│   └── utils/              # Utility functions (cn, version, commit hash)
-├── public/                 # Static assets
+│   ├── services/           # Read-side data access (cached)
+│   ├── types/              # TypeScript interfaces
+│   ├── utils/              # Helper functions (cn, version, commit hash)
+│   └── validations/        # Zod schemas
+├── proxy.ts                # Edge middleware
+├── public/
+│   ├── assets/             # Images and static media
+│   └── fonts/              # Custom font files
 ├── .github/
 │   ├── workflows/          # CI, Release, Dependency Review, PR Title
 │   └── dependabot.yml      # Automated dependency updates
@@ -60,14 +69,14 @@ template-next-app/
 
 ### Prerequisites
 
-- Node.js 22+
+- Node.js 24+
 - pnpm 11+
 
 ### Installation
 
 ```bash
-git clone https://github.com/henchoznoe/template-next-app.git
-cd template-next-app
+git clone https://github.com/henchoznoe/NexTemplate.git
+cd NexTemplate
 pnpm install
 pnpm dev
 ```

@@ -1,9 +1,11 @@
 import type { MetadataRoute } from 'next'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+const sitemap = (): MetadataRoute.Sitemap => {
   const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : 'http://localhost:3000'
 
   return [{ url: baseUrl, changeFrequency: 'weekly', priority: 1 }]
 }
+
+export default sitemap
