@@ -63,6 +63,14 @@ pnpm knip             # Dead code / unused dependency detection
 - `cn()` from `@/lib/utils/cn` for all Tailwind class merging (clsx + tailwind-merge)
 - Vercel env vars exposed to client via `next.config.ts` `env` block (e.g., `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA`)
 - Path alias: `@/*` maps to project root
+- Component props: declare an explicit `interface [Component]Props` for every component that accepts props. Wrap with `Readonly<>` at the function signature:
+  ```tsx
+  interface MyComponentProps {
+    readonly title: string
+  }
+
+  const MyComponent = ({ title }: Readonly<MyComponentProps>) => { ... }
+  ```
 
 ## Verification
 

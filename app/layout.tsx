@@ -25,7 +25,11 @@ export const metadata: Metadata = {
     'Production-ready Next.js 16 starter — TypeScript strict, Tailwind v4, shadcn/ui, Biome, semantic-release, and CI/CD baked in. Clone, build, ship.',
 }
 
-export default function RootLayout({ children }: PropsWithChildren) {
+interface RootLayoutProps {
+  readonly children: PropsWithChildren['children']
+}
+
+const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -39,3 +43,5 @@ export default function RootLayout({ children }: PropsWithChildren) {
     </html>
   )
 }
+
+export default RootLayout
