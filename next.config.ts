@@ -10,6 +10,7 @@ const getLocalIp = () => {
 }
 
 const nextConfig: NextConfig = {
+  // output: 'standalone', // Uncomment for Docker/Kubernetes deployment
   allowedDevOrigins: [getLocalIp()],
   env: {
     NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA: process.env.VERCEL_GIT_COMMIT_SHA ?? '',

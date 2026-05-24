@@ -84,6 +84,13 @@ pnpm knip             # Dead code / unused dependency detection
 
 Semantic-release on `main` branch via GitHub Actions. Conventional Commits required for PR titles (feat, fix, chore, ci, docs, refactor, test, perf). Version bumped in `package.json`, changelog generated automatically.
 
+## Deployment
+
+- **Vercel (default)**: Zero config. Push to GitHub, import in Vercel.
+- **Docker**: Uncomment `output: 'standalone'` in `next.config.ts`, then `docker compose up --build`. Multi-stage Dockerfile produces minimal Alpine image (~150MB).
+- **Kubernetes**: Manifests in `k8s/` — deployment (2 replicas, probes, resource limits), service (ClusterIP), ingress (nginx). Update image and domain before applying.
+- When switching to Docker/K8s, optionally remove `@vercel/analytics` and Vercel-specific env vars.
+
 ## Adding Features
 
 - Add shadcn components: `npx shadcn@latest add <component>`
