@@ -15,6 +15,7 @@
       "components/**",
       "lib/**",
       "next.config.ts",
+      "proxy.ts",
       "!**/package.json",
       "biome.json",
       "tsconfig.json",
