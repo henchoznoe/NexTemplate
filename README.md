@@ -1,6 +1,6 @@
 <div align="center">
 
-[![CI](https://github.com/henchoznoe/template-next-app/actions/workflows/ci.yml/badge.svg)](https://github.com/henchoznoe/template-next-app/actions/workflows/ci.yml)
+[![CI](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml/badge.svg)](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat&logo=next.js)](https://nextjs.org/)
@@ -35,7 +35,7 @@ A batteries-included Next.js 16 template featuring TypeScript strict mode, Tailw
 ## Project Structure
 
 ```
-template-next-app/
+NexTemplate/
 ├── app/                    # Next.js App Router pages and layouts
 │   ├── globals.css         # Tailwind v4 theme (light + dark)
 │   ├── layout.tsx          # Root layout with font and analytics
@@ -66,8 +66,8 @@ template-next-app/
 ### Installation
 
 ```bash
-git clone https://github.com/henchoznoe/template-next-app.git
-cd template-next-app
+git clone https://github.com/henchoznoe/NexTemplate.git
+cd NexTemplate
 pnpm install
 pnpm dev
 ```

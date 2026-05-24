@@ -1,15 +1,15 @@
 {
-  "name": "template-next-app",
+  "name": "NexTemplate",
   "version": "1.0.0",
   "description": "Next.js starter template with opinionated tooling",
   "type": "module",
   "private": true,
   "license": "MIT",
   "author": "Noé Henchoz",
-  "homepage": "https://github.com/henchoznoe/template-next-app",
+  "homepage": "https://github.com/henchoznoe/NexTemplate",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/henchoznoe/template-next-app.git"
+    "url": "git+https://github.com/henchoznoe/NexTemplate.git"
   },
   "scripts": {
     "dev": "next dev",
