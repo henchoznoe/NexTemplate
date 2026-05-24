@@ -47,9 +47,18 @@ NexTemplate/
 │   ├── footer.tsx          # Footer with version display
 │   └── ui/                 # shadcn/ui components
 ├── lib/
+│   ├── actions/            # Server Actions (mutations)
+│   ├── config/             # Constants and configuration
+│   ├── core/               # Infrastructure (auth, db, env, logger)
 │   ├── hooks/              # Custom React hooks
-│   └── utils/              # Utility functions (cn, version, commit hash)
-├── public/                 # Static assets
+│   ├── services/           # Read-side data access (cached)
+│   ├── types/              # TypeScript interfaces
+│   ├── utils/              # Helper functions (cn, version, commit hash)
+│   └── validations/        # Zod schemas
+├── proxy.ts                # Edge middleware
+├── public/
+│   ├── assets/             # Images and static media
+│   └── fonts/              # Custom font files
 ├── .github/
 │   ├── workflows/          # CI, Release, Dependency Review, PR Title
 │   └── dependabot.yml      # Automated dependency updates

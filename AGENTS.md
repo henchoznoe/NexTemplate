@@ -5,7 +5,18 @@ This file provides guidance to AI coding agents (Claude Code, Copilot, Cursor, e
 ## Fast Start
 
 - Single Next.js 16 App Router application. TypeScript strict mode.
-- Boundaries: `app/` routes, `components/` UI, `lib/utils/` helpers, `lib/hooks/` custom hooks.
+- Boundaries:
+  - `app/` — Routes and page orchestration
+  - `components/` — UI components (`ui/` for shadcn primitives)
+  - `lib/actions/` — Server Actions (mutations)
+  - `lib/config/` — Constants and configuration
+  - `lib/core/` — Infrastructure (auth, db clients, env, logger)
+  - `lib/hooks/` — Custom React hooks
+  - `lib/services/` — Read-side data access (cached)
+  - `lib/types/` — TypeScript interfaces
+  - `lib/utils/` — Helper functions
+  - `lib/validations/` — Zod schemas
+  - `proxy.ts` — Edge middleware
 - No database, no auth, no API routes by default. Extend as needed.
 
 ## Commands
@@ -24,8 +35,15 @@ pnpm knip             # Dead code / unused dependency detection
 
 - `app/` — Routes and page orchestration
 - `components/` — UI components (`ui/` for shadcn primitives)
-- `lib/utils/` — Helper functions
+- `lib/actions/` — Server Actions for mutations
+- `lib/config/` — Constants and named configuration
+- `lib/core/` — Infrastructure singletons (auth, db, env, logger)
 - `lib/hooks/` — Custom React hooks
+- `lib/services/` — Read-side cached data access
+- `lib/types/` — TypeScript interfaces and type definitions
+- `lib/utils/` — Helper functions
+- `lib/validations/` — Zod schemas for runtime validation
+- `proxy.ts` — Edge middleware (route protection)
 
 **Styling**: Tailwind v4 via PostCSS (no tailwind.config file). Theme defined in `app/globals.css` with `@theme inline` and CSS custom properties. Supports light + dark mode. Font: Inter (`--font-inter`) via `next/font/google`, mapped in `@theme inline`.
 
@@ -61,6 +79,13 @@ Semantic-release on `main` branch via GitHub Actions. Conventional Commits requi
 ## Adding Features
 
 - Add shadcn components: `npx shadcn@latest add <component>`
+- Server Actions (mutations) go in `lib/actions/`
+- Read-side data access go in `lib/services/`
+- Zod schemas go in `lib/validations/`
+- TypeScript types go in `lib/types/`
+- Constants go in `lib/config/`
+- Infrastructure (auth, db, env) go in `lib/core/`
 - Custom hooks go in `lib/hooks/`
 - Utilities go in `lib/utils/`
-- Static assets go in `public/`
+- Static assets go in `public/assets/`
+- Custom fonts go in `public/fonts/`
