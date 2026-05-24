@@ -4,7 +4,7 @@ const serverSchema = z.object({
   NODE_ENV: z
     .enum(['development', 'production', 'test'])
     .default('development'),
-  VERCEL_PROJECT_PRODUCTION_URL: z.url().optional(),
+  VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
   VERCEL_GIT_COMMIT_SHA: z.string().optional(),
 })
 
