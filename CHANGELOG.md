@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/henchoznoe/NexTemplate/compare/v1.1.0...v1.2.0) (2026-05-24)
+
+
+### Bug Fixes
+
+* relax VERCEL_PROJECT_PRODUCTION_URL validation type ([f2889c9](https://github.com/henchoznoe/NexTemplate/commit/f2889c97ce56cc0105148fbbbe248919c87fdcee))
+
+
+### Features
+
+* add Docker and Kubernetes support for production containerized deployment ([4745751](https://github.com/henchoznoe/NexTemplate/commit/47457511e1af40e27ef594fd7c542000ea10c824))
+* add site configuration, theme support, health check, bundle analysis, and env validation ([459edda](https://github.com/henchoznoe/NexTemplate/commit/459edda8097bcc004d251c49271bfc164701b952))
+
 # [1.1.0](https://github.com/henchoznoe/NexTemplate/compare/v1.0.0...v1.1.0) (2026-05-24)
 
 
