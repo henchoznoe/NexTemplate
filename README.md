@@ -1,6 +1,7 @@
 <div align="center">
 
 [![CI](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml/badge.svg)](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/henchoznoe/NexTemplate)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat&logo=next.js)](https://nextjs.org/)
@@ -25,37 +26,46 @@ Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode,
 | Framework | Next.js 16 (App Router, RSC) |
 | UI | React 19, Tailwind CSS v4, shadcn/ui (new-york) |
 | Language | TypeScript 6 (strict mode) |
+| Theme | next-themes (light/dark/system) |
+| Validation | Zod (env + runtime schemas) |
 | Icons | Lucide React |
 | Quality | Biome, knip, lefthook, commitlint |
 | Release | Semantic Release, Conventional Commits |
 | CI/CD | GitHub Actions |
 | Analytics | Vercel Analytics |
-| Hosting | Vercel |
+| Hosting | Vercel (default), Docker/Kubernetes (alternative) |
 
 ## Project Structure
 
-```
+```text
 NexTemplate/
 ├── app/                    # Next.js App Router pages and layouts
+│   ├── api/health/         # Health check endpoint (K8s probes)
 │   ├── globals.css         # Tailwind v4 theme (light + dark)
-│   ├── layout.tsx          # Root layout with font and analytics
+│   ├── layout.tsx          # Root layout with providers
+│   ├── manifest.ts         # PWA manifest
 │   ├── page.tsx            # Home page
 │   ├── not-found.tsx       # Custom 404
 │   ├── robots.ts           # Dynamic robots.txt
 │   └── sitemap.ts          # Dynamic sitemap
 ├── components/
+│   ├── theme-provider.tsx  # next-themes wrapper
+│   ├── theme-toggle.tsx    # Dark/light/system toggle
 │   ├── footer.tsx          # Footer with version display
 │   └── ui/                 # shadcn/ui components
 ├── lib/
 │   ├── actions/            # Server Actions (mutations)
-│   ├── config/             # Constants and configuration
-│   ├── core/               # Infrastructure (auth, db, env, logger)
+│   ├── config/site.ts      # Central site metadata
+│   ├── core/env.ts         # Env validation (Zod)
 │   ├── hooks/              # Custom React hooks
 │   ├── services/           # Read-side data access (cached)
 │   ├── types/              # TypeScript interfaces
 │   ├── utils/              # Helper functions (cn, version, commit hash)
 │   └── validations/        # Zod schemas
+├── k8s/                    # Kubernetes manifests (deployment, service, ingress)
 ├── proxy.ts                # Edge middleware
+├── Dockerfile              # Multi-stage production build
+├── docker-compose.yml      # Local Docker testing
 ├── public/
 │   ├── assets/             # Images and static media
 │   └── fonts/              # Custom font files
@@ -78,10 +88,56 @@ NexTemplate/
 git clone https://github.com/henchoznoe/NexTemplate.git
 cd NexTemplate
 pnpm install
+cp .env.example .env
 pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Using This Template
+
+When you create a new project from this template, follow these steps:
+
+### 1. Rename the project
+
+- Update `name`, `description`, `homepage`, and `repository` in `package.json`
+- Update site metadata in `lib/config/site.ts`
+- Update copyright in `components/footer.tsx`
+
+### 2. Configure environment
+
+- Copy `.env.example` to `.env` and fill in values
+- Add new env vars to `lib/core/env.ts` schema and `.env.example`
+
+### 3. Configure hosting
+
+**Vercel (default)** — no changes needed. Push to GitHub and import in Vercel.
+
+**Docker/Kubernetes** — see [Deployment](#deployment) section below.
+
+### 4. Set up CI/CD
+
+- Ensure GitHub Actions workflows match your branch strategy
+- Update `release.yml` if your main branch differs
+- Set up required secrets (e.g., `NPM_TOKEN` if publishing)
+
+### 5. Clean up template content
+
+- Replace the content in `app/page.tsx` with your own
+- Remove example components you don't need
+- Update or remove `CHANGELOG.md`
+- Update this README for your project
+- Add PWA icons to `public/assets/` (icon-192.png, icon-512.png) or remove `app/manifest.ts`
+
+### 6. Optional integrations
+
+| Need | Recommendation |
+| --- | --- |
+| Authentication | [Better Auth](https://www.better-auth.com/) or [NextAuth.js](https://next-auth.js.org/) |
+| Database | [Prisma](https://www.prisma.io/) with PostgreSQL |
+| Testing | [Vitest](https://vitest.dev/) with `@vitest/coverage-v8` |
+| Email | [React Email](https://react.email/) + [Resend](https://resend.com/) |
+| Payments | [Stripe](https://stripe.com/) |
 
 ## Development Commands
 
@@ -94,14 +150,78 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | `pnpm check:all` | Biome + knip (dead code) |
 | `pnpm check:com` | Full validation: Biome + knip + tsc + next build |
 | `pnpm knip` | Dead code / unused dependency detection |
+| `pnpm analyze` | Bundle size analysis (opens report) |
 | `pnpm lint` | Biome lint only |
 | `pnpm format` | Biome format only |
+
+## Deployment
+
+### Vercel (Default)
+
+Push to GitHub and import in [Vercel](https://vercel.com). Zero configuration needed — the project is pre-configured for Vercel deployment.
+
+### Docker
+
+To deploy with Docker instead of Vercel:
+
+**1. Enable standalone output** in `next.config.ts`:
+
+```ts
+const nextConfig: NextConfig = {
+  output: 'standalone', // Uncomment this line
+  // ...
+}
+```
+
+**2. Build and run:**
+
+```bash
+# Using docker-compose (recommended for local testing)
+docker compose up --build
+
+# Or manually
+docker build -t nextemplate .
+docker run -p 3000:3000 nextemplate
+```
+
+**3. Optional — Remove Vercel-specific code:**
+
+- Remove `@vercel/analytics` from `package.json` and its usage in `app/layout.tsx`
+- Remove `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA` from `next.config.ts` (or replace with your own build-time variable)
+
+### Kubernetes
+
+After building your Docker image and pushing to a container registry:
+
+**1. Update the image** in `k8s/deployment.yaml`:
+
+```yaml
+image: your-registry.io/nextemplate:latest
+```
+
+**2. Update the domain** in `k8s/ingress.yaml`:
+
+```yaml
+host: your-domain.com
+```
+
+**3. Apply manifests:**
+
+```bash
+kubectl apply -f k8s/
+```
+
+The K8s setup includes:
+
+- **Deployment** — 2 replicas with resource limits, liveness/readiness probes on `/api/health`
+- **Service** — ClusterIP exposing port 80
+- **Ingress** — Nginx ingress controller routing
 
 ## Quality Workflow
 
 ### CI Pipeline Order
 
-```
+```text
 gitleaks (secret scanning)
   ↓
 tsc --noEmit (type-check)
@@ -109,6 +229,8 @@ tsc --noEmit (type-check)
 biome check . (lint + format)
   ↓
 knip (dead code)
+  ↓
+next build (production build)
   ↓
 pnpm audit --audit-level=high (security)
 ```
@@ -122,34 +244,6 @@ pnpm audit --audit-level=high (security)
 ### Pre-commit Hook
 
 Lefthook runs `biome check --write` on staged `*.{ts,tsx,css}` files. Commit messages are validated against Conventional Commits format via commitlint.
-
-## Customization
-
-### Rename the project
-
-1. Update `name`, `homepage`, and `repository` in `package.json`
-2. Update metadata in `app/layout.tsx`
-3. Update copyright in `components/footer.tsx`
-
-### Add shadcn/ui components
-
-```bash
-npx shadcn@latest add [component-name]
-```
-
-Components are added to `components/ui/`.
-
-### Add authentication
-
-Consider [Better Auth](https://www.better-auth.com/) or [NextAuth.js](https://next-auth.js.org/).
-
-### Add a database
-
-Consider [Prisma](https://www.prisma.io/) with PostgreSQL. Add a `prisma/` directory and update CI to include `prisma generate`.
-
-### Add testing
-
-Consider [Vitest](https://vitest.dev/) with `@vitest/coverage-v8`. Add `pnpm test` and `pnpm test:coverage` scripts.
 
 ## License
 

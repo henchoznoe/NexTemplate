@@ -1,5 +1,10 @@
 import os from 'node:os'
+import bundleAnalyzer from '@next/bundle-analyzer'
 import type { NextConfig } from 'next'
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 const getLocalIp = () => {
   const interfaces = os.networkInterfaces()
@@ -10,10 +15,11 @@ const getLocalIp = () => {
 }
 
 const nextConfig: NextConfig = {
+  // output: 'standalone', // Uncomment for Docker/Kubernetes deployment
   allowedDevOrigins: [getLocalIp()],
   env: {
     NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA: process.env.VERCEL_GIT_COMMIT_SHA ?? '',
   },
 }
 
-export default nextConfig
+export default withBundleAnalyzer(nextConfig)

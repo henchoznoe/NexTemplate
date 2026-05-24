@@ -61,5 +61,8 @@ jobs:
       - name: Dead code analysis
         run: pnpm exec knip
 
+      - name: Build
+        run: pnpm build
+
       - name: Security audit
         run: pnpm audit --audit-level=high
