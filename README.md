@@ -60,7 +60,7 @@ template-next-app/
 
 ### Prerequisites
 
-- Node.js 22+
+- Node.js 24+
 - pnpm 11+
 
 ### Installation
