@@ -1,0 +1,13 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignore": ["components/ui/**"],
+  "ignoreDependencies": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/npm",
+    "@semantic-release/github",
+    "class-variance-authority",
+    "lucide-react",
+    "radix-ui"
+  ]
+}
