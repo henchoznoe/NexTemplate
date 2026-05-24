@@ -1,5 +1,10 @@
 import os from 'node:os'
+import bundleAnalyzer from '@next/bundle-analyzer'
 import type { NextConfig } from 'next'
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 const getLocalIp = () => {
   const interfaces = os.networkInterfaces()
@@ -17,4 +22,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+export default withBundleAnalyzer(nextConfig)

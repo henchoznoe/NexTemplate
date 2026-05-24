@@ -26,6 +26,8 @@ Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode,
 | Framework | Next.js 16 (App Router, RSC) |
 | UI | React 19, Tailwind CSS v4, shadcn/ui (new-york) |
 | Language | TypeScript 6 (strict mode) |
+| Theme | next-themes (light/dark/system) |
+| Validation | Zod (env + runtime schemas) |
 | Icons | Lucide React |
 | Quality | Biome, knip, lefthook, commitlint |
 | Release | Semantic Release, Conventional Commits |
@@ -38,19 +40,23 @@ Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode,
 ```text
 NexTemplate/
 ├── app/                    # Next.js App Router pages and layouts
+│   ├── api/health/         # Health check endpoint (K8s probes)
 │   ├── globals.css         # Tailwind v4 theme (light + dark)
-│   ├── layout.tsx          # Root layout with font and analytics
+│   ├── layout.tsx          # Root layout with providers
+│   ├── manifest.ts         # PWA manifest
 │   ├── page.tsx            # Home page
 │   ├── not-found.tsx       # Custom 404
 │   ├── robots.ts           # Dynamic robots.txt
 │   └── sitemap.ts          # Dynamic sitemap
 ├── components/
+│   ├── theme-provider.tsx  # next-themes wrapper
+│   ├── theme-toggle.tsx    # Dark/light/system toggle
 │   ├── footer.tsx          # Footer with version display
 │   └── ui/                 # shadcn/ui components
 ├── lib/
 │   ├── actions/            # Server Actions (mutations)
-│   ├── config/             # Constants and configuration
-│   ├── core/               # Infrastructure (auth, db, env, logger)
+│   ├── config/site.ts      # Central site metadata
+│   ├── core/env.ts         # Env validation (Zod)
 │   ├── hooks/              # Custom React hooks
 │   ├── services/           # Read-side data access (cached)
 │   ├── types/              # TypeScript interfaces
@@ -82,6 +88,7 @@ NexTemplate/
 git clone https://github.com/henchoznoe/NexTemplate.git
 cd NexTemplate
 pnpm install
+cp .env.example .env
 pnpm dev
 ```
 
@@ -94,30 +101,35 @@ When you create a new project from this template, follow these steps:
 ### 1. Rename the project
 
 - Update `name`, `description`, `homepage`, and `repository` in `package.json`
-- Update site metadata (title, description, URL) in `app/layout.tsx`
+- Update site metadata in `lib/config/site.ts`
 - Update copyright in `components/footer.tsx`
-- Update `app/robots.ts` and `app/sitemap.ts` with your domain
 
-### 2. Configure hosting
+### 2. Configure environment
+
+- Copy `.env.example` to `.env` and fill in values
+- Add new env vars to `lib/core/env.ts` schema and `.env.example`
+
+### 3. Configure hosting
 
 **Vercel (default)** — no changes needed. Push to GitHub and import in Vercel.
 
 **Docker/Kubernetes** — see [Deployment](#deployment) section below.
 
-### 3. Set up CI/CD
+### 4. Set up CI/CD
 
 - Ensure GitHub Actions workflows match your branch strategy
 - Update `release.yml` if your main branch differs
 - Set up required secrets (e.g., `NPM_TOKEN` if publishing)
 
-### 4. Clean up template content
+### 5. Clean up template content
 
 - Replace the content in `app/page.tsx` with your own
 - Remove example components you don't need
 - Update or remove `CHANGELOG.md`
 - Update this README for your project
+- Add PWA icons to `public/assets/` (icon-192.png, icon-512.png) or remove `app/manifest.ts`
 
-### 5. Optional integrations
+### 6. Optional integrations
 
 | Need | Recommendation |
 | --- | --- |
@@ -138,6 +150,7 @@ When you create a new project from this template, follow these steps:
 | `pnpm check:all` | Biome + knip (dead code) |
 | `pnpm check:com` | Full validation: Biome + knip + tsc + next build |
 | `pnpm knip` | Dead code / unused dependency detection |
+| `pnpm analyze` | Bundle size analysis (opens report) |
 | `pnpm lint` | Biome lint only |
 | `pnpm format` | Biome format only |
 
@@ -200,7 +213,7 @@ kubectl apply -f k8s/
 
 The K8s setup includes:
 
-- **Deployment** — 2 replicas with resource limits, liveness/readiness probes
+- **Deployment** — 2 replicas with resource limits, liveness/readiness probes on `/api/health`
 - **Service** — ClusterIP exposing port 80
 - **Ingress** — Nginx ingress controller routing
 
@@ -216,6 +229,8 @@ tsc --noEmit (type-check)
 biome check . (lint + format)
   ↓
 knip (dead code)
+  ↓
+next build (production build)
   ↓
 pnpm audit --audit-level=high (security)
 ```

@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import type { PropsWithChildren } from 'react'
 import { Footer } from '@/components/footer'
+import { ThemeProvider } from '@/components/theme-provider'
+import { siteConfig } from '@/lib/config/site'
 import { cn } from '@/lib/utils/cn'
 import './globals.css'
 
@@ -11,18 +13,13 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
-const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : 'http://localhost:3000'
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: 'NexTemplate',
-    template: '%s | NexTemplate',
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    'Production-ready Next.js 16 starter — TypeScript strict, Tailwind v4, shadcn/ui, Biome, semantic-release, and CI/CD baked in. Clone, build, ship.',
+  description: siteConfig.description,
 }
 
 interface RootLayoutProps {
@@ -36,8 +33,10 @@ const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
         className={cn(inter.variable, 'font-sans antialiased')}
         suppressHydrationWarning
       >
-        {children}
-        <Footer />
+        <ThemeProvider>
+          {children}
+          <Footer />
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>
