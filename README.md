@@ -1,6 +1,7 @@
 <div align="center">
 
 [![CI](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml/badge.svg)](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/henchoznoe/NexTemplate)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat&logo=next.js)](https://nextjs.org/)
@@ -34,7 +35,7 @@ Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode,
 
 ## Project Structure
 
-```
+```text
 NexTemplate/
 ├── app/                    # Next.js App Router pages and layouts
 │   ├── globals.css         # Tailwind v4 theme (light + dark)
@@ -198,6 +199,7 @@ kubectl apply -f k8s/
 ```
 
 The K8s setup includes:
+
 - **Deployment** — 2 replicas with resource limits, liveness/readiness probes
 - **Service** — ClusterIP exposing port 80
 - **Ingress** — Nginx ingress controller routing
@@ -206,7 +208,7 @@ The K8s setup includes:
 
 ### CI Pipeline Order
 
-```
+```text
 gitleaks (secret scanning)
   ↓
 tsc --noEmit (type-check)
