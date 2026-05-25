@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/henchoznoe/NexTemplate/compare/v1.2.0...v1.2.1) (2026-05-25)
+
+
+### Bug Fixes
+
+* update CI workflows with manual gitleaks installation and dependency review constraints ([5ae9e4e](https://github.com/henchoznoe/NexTemplate/commit/5ae9e4eea77edd6a60bd4e53051952cf77b356c9))
+* use RELEASE_TOKEN with GITHUB_TOKEN fallback for semantic-release ([459c557](https://github.com/henchoznoe/NexTemplate/commit/459c557a8541b2e81172a9fa1d675aad712a821a))
+
 # [1.2.0](https://github.com/henchoznoe/NexTemplate/compare/v1.1.0...v1.2.0) (2026-05-24)
 
 
