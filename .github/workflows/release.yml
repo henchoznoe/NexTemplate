@@ -24,7 +24,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
         with:
-          persist-credentials: false
+          token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Set up pnpm
         uses: pnpm/action-setup@v6
@@ -43,4 +43,4 @@ jobs:
       - name: Run semantic-release
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
