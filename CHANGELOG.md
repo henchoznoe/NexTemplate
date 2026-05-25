@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/henchoznoe/NexTemplate/compare/v1.2.1...v1.2.2) (2026-05-25)
+
+
+### Bug Fixes
+
+* remove hardcoded repository URL and add Next.js build cache ([5425463](https://github.com/henchoznoe/NexTemplate/commit/5425463dfd64524dba32f4c6d2e3120371841c94))
+
 ## [1.2.1](https://github.com/henchoznoe/NexTemplate/compare/v1.2.0...v1.2.1) (2026-05-25)
 
 
