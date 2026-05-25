@@ -6,11 +6,6 @@
   "private": true,
   "license": "MIT",
   "author": "Noé Henchoz",
-  "homepage": "https://github.com/henchoznoe/NexTemplate",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/henchoznoe/NexTemplate.git"
-  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
