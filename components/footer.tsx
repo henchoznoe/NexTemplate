@@ -1,7 +1,7 @@
 import { getAppVersion, getRepoUrl } from '@/lib/utils/app-version'
 import { getCommitHash } from '@/lib/utils/commit-hash'
 
-export function Footer() {
+export const Footer = () => {
   const appVersion = getAppVersion()
   const repoUrl = getRepoUrl()
   const commitHash = getCommitHash()

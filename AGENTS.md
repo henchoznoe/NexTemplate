@@ -63,6 +63,14 @@ pnpm analyze          # Bundle analysis (opens report in browser)
 - `any` is forbidden (`noExplicitAny: error`)
 - Imports auto-organized on save/check
 - 2-space indent, UTF-8, LF line endings (see .editorconfig)
+- **Always use arrow functions** for components, pages, layouts, and all modules:
+  - Regular components: `export const MyComponent = () => { ... }`
+  - Next.js modules (pages, layouts, route handlers, etc.): arrow function assigned to a `const`, then `export default` on a separate line below:
+
+    ```tsx
+    const Page = () => { ... }
+    export default Page
+    ```
 
 ## Key Patterns
 
@@ -72,11 +80,11 @@ pnpm analyze          # Bundle analysis (opens report in browser)
 - Vercel env vars exposed to client via `next.config.ts` `env` block (e.g., `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA`)
 - Path alias: `@/*` maps to project root
 - Component props: declare an explicit `interface [Component]Props` for every component that accepts props. Wrap with `Readonly<>` at the function signature:
+
   ```tsx
   interface MyComponentProps {
-    readonly title: string
+    title: string
   }
-
   const MyComponent = ({ title }: Readonly<MyComponentProps>) => { ... }
   ```
 
