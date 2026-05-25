@@ -117,9 +117,9 @@ When you create a new project from this template, follow these steps:
 
 ### 4. Set up CI/CD
 
-- Ensure GitHub Actions workflows match your branch strategy
-- Update `release.yml` if your main branch differs
-- Set up required secrets (e.g., `NPM_TOKEN` if publishing)
+- **Dependency review**: Enable the Dependency Graph (Settings > Code security and analysis > Dependency graph).
+- **Secret scanning**: Works automatically on all repo types (public and private) — no configuration needed.
+- Update `release.yml` if your main branch name differs
 
 ### 5. Clean up template content
 
