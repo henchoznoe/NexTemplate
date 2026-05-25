@@ -13,6 +13,7 @@ jobs:
   dependency-review:
     name: Dependency Review
     runs-on: ubuntu-latest
+    if: ${{ !github.event.repository.private }}
 
     steps:
       - name: Checkout code
