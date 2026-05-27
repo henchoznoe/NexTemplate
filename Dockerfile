@@ -22,7 +22,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV DOCKER_BUILD=true
 
 ARG DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder"
-ARG BETTER_AUTH_SECRET="docker-build-placeholder-secret-key-32ch"
+ARG BETTER_AUTH_SECRET="this_is_a_docker_build_placeholder!!"
 ARG GITHUB_CLIENT_ID="docker-build-placeholder"
 ARG GITHUB_CLIENT_SECRET="docker-build-placeholder"
 ENV DATABASE_URL=$DATABASE_URL

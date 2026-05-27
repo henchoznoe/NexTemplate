@@ -7,7 +7,7 @@ export default defineConfig({
     include: ['tests/**/*.test.{ts,tsx}'],
     env: {
       DATABASE_URL: 'postgresql://test:test@localhost:5432/test',
-      BETTER_AUTH_SECRET: 'test-secret-key-at-least-32-characters-long',
+      BETTER_AUTH_SECRET: 'this_is_a_test_placeholder_only!!',
       GITHUB_CLIENT_ID: 'test-client-id',
       GITHUB_CLIENT_SECRET: 'test-client-secret',
     },
