@@ -4,6 +4,11 @@ const serverSchema = z.object({
   NODE_ENV: z
     .enum(['development', 'production', 'test'])
     .default('development'),
+  DATABASE_URL: z.string(),
+  BETTER_AUTH_SECRET: z.string().min(32),
+  BETTER_AUTH_URL: z.url().optional(),
+  GITHUB_CLIENT_ID: z.string(),
+  GITHUB_CLIENT_SECRET: z.string(),
   VERCEL_ENV: z.enum(['development', 'preview', 'production']).optional(),
   VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
   VERCEL_GIT_COMMIT_SHA: z.string().optional(),

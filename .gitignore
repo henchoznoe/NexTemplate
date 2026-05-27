@@ -48,3 +48,5 @@ lefthook-local.yml
 
 # Claude Code
 .claude
+
+/lib/generated/prisma

@@ -35,7 +35,7 @@ jobs:
         run: gitleaks detect --source . --verbose --redact
 
   ci:
-    name: Lint, Type-check & Audit
+    name: Lint, Type-check & Build
     runs-on: ubuntu-latest
 
     steps:
@@ -56,6 +56,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate Prisma client
+        run: pnpm exec prisma generate
+
       - name: Type-check
         run: pnpm exec tsc --noEmit
 
@@ -75,6 +78,39 @@ jobs:
 
       - name: Build
         run: pnpm build
+        env:
+          DATABASE_URL: 'postgresql://ci:ci@localhost:5432/ci'
+          BETTER_AUTH_SECRET: 'ci-placeholder-secret-key-at-least-32-chars'
+          GITHUB_CLIENT_ID: 'ci-placeholder'
+          GITHUB_CLIENT_SECRET: 'ci-placeholder'
 
       - name: Security audit
         run: pnpm audit --audit-level=high
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.node-version'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm exec prisma generate
+
+      - name: Run tests
+        run: pnpm test:coverage

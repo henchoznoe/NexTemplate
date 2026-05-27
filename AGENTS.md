@@ -17,17 +17,26 @@ This file provides guidance to AI coding agents (Claude Code, Copilot, Cursor, e
   - `lib/utils/` — Helper functions
   - `lib/validations/` — Zod schemas
   - `proxy.ts` — Edge middleware
-- No database, no auth by default. Extend as needed.
+- **Auth**: Better Auth with GitHub OAuth (`lib/core/auth.ts`, `lib/core/auth-client.ts`)
+- **Database**: Prisma 7 + PostgreSQL (`lib/core/db.ts`, `prisma/schema.prisma`)
+- **Testing**: Vitest + React Testing Library (`tests/`)
 
 ## Commands
 
 ```bash
 pnpm dev              # Start dev server
-pnpm check:com        # Full validation: biome + knip + tsc --noEmit + next build
+pnpm check:com        # Full validation: biome + knip + prisma generate + tsc --noEmit + next build
 pnpm check            # Biome lint + format (auto-fix)
 pnpm check:all        # Biome + knip (no build)
 pnpm knip             # Dead code / unused dependency detection
 pnpm analyze          # Bundle analysis (opens report in browser)
+pnpm test             # Run tests
+pnpm test:coverage    # Run tests with coverage
+pnpm db:generate      # Generate Prisma client
+pnpm db:migrate       # Create and apply migration
+pnpm db:push          # Push schema to database
+pnpm db:seed          # Run seed script
+pnpm db:studio        # Open Prisma Studio
 ```
 
 `pnpm check:com` is the source of truth — always run before considering work done.
@@ -35,13 +44,20 @@ pnpm analyze          # Bundle analysis (opens report in browser)
 ## Architecture
 
 - `app/` — Routes and page orchestration
+- `app/api/auth/[...all]/` — Better Auth catch-all API route
 - `app/api/health/` — Health check endpoint (used by K8s probes)
 - `components/` — UI components (`ui/` for shadcn primitives)
 - `lib/actions/` — Server Actions for mutations
 - `lib/config/` — Constants and named configuration
 - `lib/config/site.ts` — Central site metadata (name, description, URL)
 - `lib/core/` — Infrastructure singletons (auth, db, env, logger)
+- `lib/core/auth.ts` — Better Auth server config (GitHub OAuth, Prisma adapter)
+- `lib/core/auth-client.ts` — Better Auth React client hooks
+- `lib/core/db.ts` — Prisma client singleton (hot-reload safe)
 - `lib/core/env.ts` — Environment variable validation (Zod)
+- `lib/generated/prisma/` — Generated Prisma client (gitignored)
+- `prisma/schema.prisma` — Database schema (Better Auth models)
+- `tests/` — Vitest test files
 - `lib/hooks/` — Custom React hooks
 - `lib/services/` — Read-side cached data access
 - `lib/types/` — TypeScript interfaces and type definitions
@@ -90,7 +106,7 @@ pnpm analyze          # Bundle analysis (opens report in browser)
 
 ## Verification
 
-- CI order: `tsc --noEmit` → `biome check .` → `knip` → `next build` → `pnpm audit --audit-level=high`
+- CI order: `prisma generate` → `tsc --noEmit` → `biome check .` → `knip` → `next build` → `pnpm audit --audit-level=high` + `vitest` (parallel job)
 - `release.yml` reuses `ci.yml` via `workflow_call`. Node version pinned in `.node-version`.
 - Additional workflows: `dependency-review.yml` (blocks vulnerable deps in PRs), `pr-title.yml` (enforces Conventional Commits).
 - Pre-commit runs `biome check --write` on staged `*.{ts,tsx,css}` via lefthook.
@@ -103,7 +119,8 @@ Semantic-release on `main` branch via GitHub Actions. Conventional Commits requi
 ## Deployment
 
 - **Vercel (default)**: Zero config. Push to GitHub, import in Vercel.
-- **Docker**: `docker compose up --build`. Standalone output is auto-enabled via `DOCKER_BUILD=true` in the Dockerfile. Multi-stage build produces minimal Alpine image (~150MB).
+- **Docker**: `docker compose up --build`. Standalone output is auto-enabled via `DOCKER_BUILD=true` in the Dockerfile. Multi-stage build produces minimal Alpine image (~150MB). PostgreSQL included in `docker-compose.yml`.
+- **Local DB**: `docker compose up db -d` starts PostgreSQL only for development.
 - **Kubernetes**: Manifests in `k8s/` — deployment (2 replicas, probes on `/api/health`), service (ClusterIP), ingress (nginx). Update image and domain before applying.
 - When switching to Docker/K8s, optionally remove `@vercel/analytics` and Vercel-specific env vars.
 
