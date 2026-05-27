@@ -20,6 +20,9 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  icons: {
+    icon: '/assets/nextjs.svg',
+  },
 }
 
 interface RootLayoutProps {
@@ -29,10 +32,7 @@ interface RootLayoutProps {
 const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(inter.variable, 'font-sans antialiased')}
-        suppressHydrationWarning
-      >
+      <body className={cn(inter.variable, 'font-sans antialiased')}>
         <ThemeProvider>
           {children}
           <Footer />
