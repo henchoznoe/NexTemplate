@@ -11,14 +11,9 @@ const manifest = (): MetadataRoute.Manifest => ({
   theme_color: '#09090b',
   icons: [
     {
-      src: '/assets/icon-192.png',
-      sizes: '192x192',
-      type: 'image/png',
-    },
-    {
-      src: '/assets/icon-512.png',
-      sizes: '512x512',
-      type: 'image/png',
+      src: '/assets/nextjs.svg',
+      sizes: 'any',
+      type: 'image/svg+xml',
     },
   ],
 })

@@ -103,7 +103,7 @@ Semantic-release on `main` branch via GitHub Actions. Conventional Commits requi
 ## Deployment
 
 - **Vercel (default)**: Zero config. Push to GitHub, import in Vercel.
-- **Docker**: Uncomment `output: 'standalone'` in `next.config.ts`, then `docker compose up --build`. Multi-stage Dockerfile produces minimal Alpine image (~150MB).
+- **Docker**: `docker compose up --build`. Standalone output is auto-enabled via `DOCKER_BUILD=true` in the Dockerfile. Multi-stage build produces minimal Alpine image (~150MB).
 - **Kubernetes**: Manifests in `k8s/` — deployment (2 replicas, probes on `/api/health`), service (ClusterIP), ingress (nginx). Update image and domain before applying.
 - When switching to Docker/K8s, optionally remove `@vercel/analytics` and Vercel-specific env vars.
 
