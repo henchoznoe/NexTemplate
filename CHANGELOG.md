@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/henchoznoe/NexTemplate/compare/v1.2.2...v1.2.3) (2026-05-27)
+
+
+### Bug Fixes
+
+* address audit findings and improve template defaults ([680046d](https://github.com/henchoznoe/NexTemplate/commit/680046da25a5a717b5d8c5220c30a912fbd403c8))
+
 ## [1.2.2](https://github.com/henchoznoe/NexTemplate/compare/v1.2.1...v1.2.2) (2026-05-25)
 
 
