@@ -1,9 +1,6 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # NexTemplate — Multi-stage Docker build for Next.js standalone output
 # ─────────────────────────────────────────────────────────────────────────────
-# Prerequisites:
-#   In next.config.ts, uncomment: output: 'standalone'
-# ─────────────────────────────────────────────────────────────────────────────
 
 # ── Stage 1: Install dependencies ────────────────────────────────────────────
 FROM node:24-alpine AS deps
@@ -22,6 +19,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV DOCKER_BUILD=true
 RUN pnpm build
 
 # ── Stage 3: Production image ───────────────────────────────────────────────

@@ -127,7 +127,7 @@ When you create a new project from this template, follow these steps:
 - Remove example components you don't need
 - Update or remove `CHANGELOG.md`
 - Update this README for your project
-- Add PWA icons to `public/assets/` (icon-192.png, icon-512.png) or remove `app/manifest.ts`
+- Replace the default PWA icon in `public/assets/` or remove `app/manifest.ts`
 
 ### 6. Optional integrations
 
@@ -138,6 +138,8 @@ When you create a new project from this template, follow these steps:
 | Testing | [Vitest](https://vitest.dev/) with `@vitest/coverage-v8` |
 | Email | [React Email](https://react.email/) + [Resend](https://resend.com/) |
 | Payments | [Stripe](https://stripe.com/) |
+| Logging | [Pino](https://getpino.io/) or [Winston](https://github.com/winstonjs/winston) for structured logging |
+| Error monitoring | [Sentry](https://sentry.io/) for error tracking and performance monitoring |
 
 ## Development Commands
 
@@ -164,16 +166,9 @@ Push to GitHub and import in [Vercel](https://vercel.com). Zero configuration ne
 
 To deploy with Docker instead of Vercel:
 
-**1. Enable standalone output** in `next.config.ts`:
+**1. Build and run:**
 
-```ts
-const nextConfig: NextConfig = {
-  output: 'standalone', // Uncomment this line
-  // ...
-}
-```
-
-**2. Build and run:**
+> Standalone output is automatically enabled via the `DOCKER_BUILD=true` environment variable set in the Dockerfile — no code changes needed.
 
 ```bash
 # Using docker-compose (recommended for local testing)
@@ -184,7 +179,7 @@ docker build -t nextemplate .
 docker run -p 3000:3000 nextemplate
 ```
 
-**3. Optional — Remove Vercel-specific code:**
+**2. Optional — Remove Vercel-specific code:**
 
 - Remove `@vercel/analytics` from `package.json` and its usage in `app/layout.tsx`
 - Remove `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA` from `next.config.ts` (or replace with your own build-time variable)
