@@ -1,4 +1,5 @@
 import { ThemeToggle } from '@/components/theme-toggle'
+import { Button } from '@/components/ui/button'
 
 const HomePage = () => {
   return (
@@ -7,6 +8,7 @@ const HomePage = () => {
       <p className="text-muted-foreground">
         Your starting point for building modern web applications.
       </p>
+      <Button variant="outline">Login with GitHub</Button>
       <ThemeToggle />
     </main>
   )

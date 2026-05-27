@@ -2,7 +2,7 @@ import { env } from '@/lib/core/env'
 
 const siteUrl = env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : (process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000')
+  : env.NEXT_PUBLIC_APP_URL
 
 export const siteConfig = {
   name: 'NexTemplate',

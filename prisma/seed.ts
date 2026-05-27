@@ -1,33 +1,35 @@
 import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient } from '../lib/generated/prisma/client'
+import { config } from 'dotenv'
+import { PrismaClient } from './generated/prisma/client'
 
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
-const prisma = new PrismaClient({ adapter })
+config({ path: '.env.local' })
 
-const seed = async () => {
+const main = async () => {
+  // Skip seeding in test environment
+  if (process.env.NODE_ENV === 'test') {
+    console.log('Skipping seed in test environment.')
+    return
+  }
+
+  // Setup Prisma client
+  const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+  const prisma = new PrismaClient({ adapter })
+
   console.log('Seeding database...')
 
-  // Add your seed data here
-  // Example:
-  // await prisma.user.upsert({
-  //   where: { email: 'admin@example.com' },
-  //   update: {},
-  //   create: {
-  //     id: 'seed-admin-id',
-  //     name: 'Admin',
-  //     email: 'admin@example.com',
-  //     emailVerified: true,
-  //   },
-  // })
-
-  console.log('Seeding complete.')
+  try {
+    // seed here
+    console.log('\nSeed completed successfully!')
+  } catch (error) {
+    console.error('Seed failed:', error)
+    throw error
+  } finally {
+    console.log('Disconnecting from database...')
+    await prisma.$disconnect()
+  }
 }
 
-seed()
-  .catch(e => {
-    console.error(e)
-    process.exit(1)
-  })
-  .finally(async () => {
-    await prisma.$disconnect()
-  })
+main().catch(error => {
+  console.error('Fatal error during seeding:', error)
+  process.exit(1)
+})
