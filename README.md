@@ -36,7 +36,7 @@ Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode,
 | Release | Semantic Release, Conventional Commits |
 | CI/CD | GitHub Actions |
 | Analytics | Vercel Analytics |
-| Hosting | Vercel (default), Docker/Kubernetes (alternative) |
+| Hosting | Vercel (default), Docker (alternative) |
 
 ## Project Structure
 
@@ -44,7 +44,7 @@ Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode,
 NexTemplate/
 ├── app/                    # Next.js App Router pages and layouts
 │   ├── api/auth/[...all]/  # Better Auth catch-all API route
-│   ├── api/health/         # Health check endpoint (K8s probes)
+│   ├── api/health/         # Health check endpoint
 │   ├── globals.css         # Tailwind v4 theme (light + dark)
 │   ├── layout.tsx          # Root layout with providers
 │   ├── manifest.ts         # PWA manifest
@@ -75,7 +75,6 @@ NexTemplate/
 │   ├── seed.ts             # Database seed script
 │   └── migrations/         # Prisma migrations
 ├── tests/                  # Vitest test files
-├── k8s/                    # Kubernetes manifests (deployment, service, ingress)
 ├── proxy.ts                # Edge middleware
 ├── Dockerfile              # Multi-stage production build
 ├── docker-compose.yml      # PostgreSQL + app (Docker deployment)
@@ -155,7 +154,7 @@ When you create a new project from this template, follow these steps:
 
 **Vercel (default)** — no changes needed. Push to GitHub and import in Vercel.
 
-**Docker/Kubernetes** — see [Deployment](#deployment) section below.
+**Docker** — see [Deployment](#deployment) section below.
 
 ### 4. Set up CI/CD
 
@@ -230,34 +229,6 @@ docker run -p 3000:3000 nextemplate
 
 - Remove `@vercel/analytics` from `package.json` and its usage in `app/layout.tsx`
 - Remove `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA` from `next.config.ts` (or replace with your own build-time variable)
-
-### Kubernetes
-
-After building your Docker image and pushing to a container registry:
-
-**1. Update the image** in `k8s/deployment.yaml`:
-
-```yaml
-image: your-registry.io/nextemplate:latest
-```
-
-**2. Update the domain** in `k8s/ingress.yaml`:
-
-```yaml
-host: your-domain.com
-```
-
-**3. Apply manifests:**
-
-```bash
-kubectl apply -f k8s/
-```
-
-The K8s setup includes:
-
-- **Deployment** — 2 replicas with resource limits, liveness/readiness probes on `/api/health`
-- **Service** — ClusterIP exposing port 80
-- **Ingress** — Nginx ingress controller routing
 
 ## Quality Workflow
 

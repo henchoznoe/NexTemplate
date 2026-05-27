@@ -45,7 +45,7 @@ pnpm db:studio        # Open Prisma Studio
 
 - `app/` — Routes and page orchestration
 - `app/api/auth/[...all]/` — Better Auth catch-all API route
-- `app/api/health/` — Health check endpoint (used by K8s probes)
+- `app/api/health/` — Health check endpoint
 - `components/` — UI components (`ui/` for shadcn primitives)
 - `lib/actions/` — Server Actions for mutations
 - `lib/config/` — Constants and named configuration
@@ -121,8 +121,7 @@ Semantic-release on `main` branch via GitHub Actions. Conventional Commits requi
 - **Vercel (default)**: Zero config. Push to GitHub, import in Vercel.
 - **Docker**: `docker compose up --build`. Standalone output is auto-enabled via `DOCKER_BUILD=true` in the Dockerfile. Multi-stage build produces minimal Alpine image (~150MB). PostgreSQL included in `docker-compose.yml`.
 - **Local DB**: `docker compose up db -d` starts PostgreSQL only for development.
-- **Kubernetes**: Manifests in `k8s/` — deployment (2 replicas, probes on `/api/health`), service (ClusterIP), ingress (nginx). Update image and domain before applying.
-- When switching to Docker/K8s, optionally remove `@vercel/analytics` and Vercel-specific env vars.
+- When switching to Docker, optionally remove `@vercel/analytics` and Vercel-specific env vars.
 
 ## Adding Features
 
