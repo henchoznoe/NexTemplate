@@ -79,7 +79,7 @@ jobs:
             nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
 
       - name: Build
-        run: pnpm build
+        run: pnpm exec next build
         env:
           BETTER_AUTH_SECRET: 'this_is_a_ci_build_placeholder_only'
           GITHUB_CLIENT_ID: 'ci-placeholder'
