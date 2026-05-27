@@ -37,6 +37,8 @@ jobs:
   ci:
     name: Lint, Type-check & Build
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: 'postgresql://ci:ci@localhost:5432/ci'
 
     steps:
       - name: Checkout code
@@ -58,8 +60,6 @@ jobs:
 
       - name: Generate Prisma client
         run: pnpm exec prisma generate
-        env:
-          DATABASE_URL: 'postgresql://ci:ci@localhost:5432/ci'
 
       - name: Type-check
         run: pnpm exec tsc --noEmit
@@ -81,7 +81,6 @@ jobs:
       - name: Build
         run: pnpm build
         env:
-          DATABASE_URL: 'postgresql://ci:ci@localhost:5432/ci'
           BETTER_AUTH_SECRET: 'this_is_a_ci_build_placeholder_only'
           GITHUB_CLIENT_ID: 'ci-placeholder'
           GITHUB_CLIENT_SECRET: 'ci-placeholder'
