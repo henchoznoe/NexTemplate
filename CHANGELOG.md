@@ -1,3 +1,21 @@
+# [1.3.0](https://github.com/henchoznoe/NexTemplate/compare/v1.2.3...v1.3.0) (2026-05-28)
+
+
+### Bug Fixes
+
+* **ci:** add DATABASE_URL env for prisma generate steps ([0e98595](https://github.com/henchoznoe/NexTemplate/commit/0e985957bbb38092d5ab4e6af5d5bf6167264013))
+* **ci:** add missing BETTER_AUTH_URL and NEXT_PUBLIC_APP_URL to build env ([aeb9b10](https://github.com/henchoznoe/NexTemplate/commit/aeb9b1022a01447791454ae6f459496e79e61b5f))
+* **ci:** set DATABASE_URL at job level for all ci steps ([a290255](https://github.com/henchoznoe/NexTemplate/commit/a290255b8138c3396fc543bb6ac3e49fccf7e2a0))
+* **ci:** use next build directly to skip migrate/seed in CI ([7f5b005](https://github.com/henchoznoe/NexTemplate/commit/7f5b0052546a9911e7e2d6848fe8e202058bc24c))
+* resolve gitleaks false positives for CI/test placeholders ([e68aaa3](https://github.com/henchoznoe/NexTemplate/commit/e68aaa3f2cd8840ce8828bd12a24971f48c94da4)), closes [hi#entropy](https://github.com/hi/issues/entropy)
+
+
+### Features
+
+* add Better Auth, Prisma PostgreSQL, and Vitest testing ([dbbbc7b](https://github.com/henchoznoe/NexTemplate/commit/dbbbc7ba076e5fce655eb5e8cfd7016db602fe96))
+* add GitHub login button with session display and sign out ([48cc6dc](https://github.com/henchoznoe/NexTemplate/commit/48cc6dca31c0101933cabbe173b0e20ebdc6e526))
+* initialize Prisma schema, remove footer component, and update metadata display on home page ([26cb4e1](https://github.com/henchoznoe/NexTemplate/commit/26cb4e139af8b83dbd98abed9dc4615cee2a5641))
+
 ## [1.2.3](https://github.com/henchoznoe/NexTemplate/compare/v1.2.2...v1.2.3) (2026-05-27)
 
 
