@@ -3,7 +3,7 @@
   "extends": ["config:recommended"],
   "dependencyDashboard": false,
   "baseBranches": ["main"],
-  "schedule": ["* 0-3 * * *"],
+  "schedule": ["*/5 * * * *"],
   "timezone": "Europe/Zurich",
   "semanticCommits": "enabled",
   "semanticCommitType": "chore",
