@@ -6,7 +6,7 @@ const createPrismaClient = () => {
   const adapter = new PrismaPg({ connectionString: env.DATABASE_URL })
   return new PrismaClient({
     adapter,
-    log: isDev ? ['error', 'warn'] : ['error'],
+    log: isDev ? ['query', 'error', 'warn', 'info'] : ['error'],
   })
 }
 

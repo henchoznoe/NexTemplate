@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getAppVersion } from '@/lib/utils/app-version'
+import { getAppVersion } from '@/lib/utils/app'
 
 describe('getAppVersion', () => {
   it('should return a valid semver string', () => {

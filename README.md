@@ -36,7 +36,7 @@ Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode,
 | Release | Semantic Release, Conventional Commits |
 | CI/CD | GitHub Actions |
 | Analytics | Vercel Analytics |
-| Hosting | Vercel (default), Docker (alternative) |
+| Hosting | Vercel |
 
 ## Project Structure
 
@@ -76,8 +76,7 @@ NexTemplate/
 │   └── migrations/         # Prisma migrations
 ├── tests/                  # Vitest test files
 ├── proxy.ts                # Edge middleware
-├── Dockerfile              # Multi-stage production build
-├── docker-compose.yml      # PostgreSQL + app (Docker deployment)
+├── docker-compose.yml      # PostgreSQL local database
 ├── public/
 │   ├── assets/             # Images and static media
 │   └── fonts/              # Custom font files
@@ -152,9 +151,7 @@ When you create a new project from this template, follow these steps:
 
 ### 3. Configure hosting
 
-**Vercel (default)** — no changes needed. Push to GitHub and import in Vercel.
-
-**Docker** — see [Deployment](#deployment) section below.
+**Vercel** — no changes needed. Push to GitHub and import in Vercel.
 
 ### 4. Set up CI/CD
 
@@ -204,31 +201,9 @@ When you create a new project from this template, follow these steps:
 
 ## Deployment
 
-### Vercel (Default)
+### Vercel
 
 Push to GitHub and import in [Vercel](https://vercel.com). Zero configuration needed — the project is pre-configured for Vercel deployment.
-
-### Docker
-
-To deploy with Docker instead of Vercel:
-
-**1. Build and run:**
-
-> Standalone output is automatically enabled via the `DOCKER_BUILD=true` environment variable set in the Dockerfile — no code changes needed.
-
-```bash
-# Using docker-compose (recommended for local testing)
-docker compose up --build
-
-# Or manually
-docker build -t nextemplate .
-docker run -p 3000:3000 nextemplate
-```
-
-**2. Optional — Remove Vercel-specific code:**
-
-- Remove `@vercel/analytics` from `package.json` and its usage in `app/layout.tsx`
-- Remove `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA` from `next.config.ts` (or replace with your own build-time variable)
 
 ## Quality Workflow
 

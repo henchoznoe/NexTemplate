@@ -118,10 +118,8 @@ Semantic-release on `main` branch via GitHub Actions. Conventional Commits requi
 
 ## Deployment
 
-- **Vercel (default)**: Zero config. Push to GitHub, import in Vercel.
-- **Docker**: `docker compose up --build`. Standalone output is auto-enabled via `DOCKER_BUILD=true` in the Dockerfile. Multi-stage build produces minimal Alpine image (~150MB). PostgreSQL included in `docker-compose.yml`.
+- **Vercel**: Zero config. Push to GitHub, import in Vercel.
 - **Local DB**: `docker compose up db -d` starts PostgreSQL only for development.
-- When switching to Docker, optionally remove `@vercel/analytics` and Vercel-specific env vars.
 
 ## Adding Features
 

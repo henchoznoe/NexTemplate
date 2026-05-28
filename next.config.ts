@@ -15,7 +15,6 @@ const getLocalIp = () => {
 }
 
 const nextConfig: NextConfig = {
-  ...(process.env.DOCKER_BUILD === 'true' && { output: 'standalone' as const }),
   allowedDevOrigins: [getLocalIp()],
   images: {
     remotePatterns: [{ hostname: 'avatars.githubusercontent.com' }],

@@ -1,5 +1,5 @@
 import { siteConfig } from '@/lib/config/site'
-import { getAppVersion } from '@/lib/utils/app-version'
+import { getAppVersion } from '@/lib/utils/app'
 import { getCommitHash } from '@/lib/utils/commit-hash'
 
 export const Footer = () => {

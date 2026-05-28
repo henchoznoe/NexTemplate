@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "ignore": ["components/ui/**", "lib/generated/**"],
+  "ignore": ["components/ui/**"],
   "ignoreDependencies": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
