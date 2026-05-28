@@ -1,3 +1,17 @@
+# [1.4.0](https://github.com/henchoznoe/NexTemplate/compare/v1.3.0...v1.4.0) (2026-05-28)
+
+
+### Bug Fixes
+
+* **ci:** make Codecov upload non-blocking when token is missing ([482fb78](https://github.com/henchoznoe/NexTemplate/commit/482fb78d4618ddae9bf825de08621315619c67ee))
+
+
+### Features
+
+* add Sonner toast notifications with Server Actions pattern ([314472f](https://github.com/henchoznoe/NexTemplate/commit/314472f0cbbd21c50fcced4c766a89af51f4ff29))
+* add Winston structured logger ([f63dbbf](https://github.com/henchoznoe/NexTemplate/commit/f63dbbf7948260f3228d0f444f2fd84c31023a43))
+* **health:** add database connectivity check with degraded status ([adca2e3](https://github.com/henchoznoe/NexTemplate/commit/adca2e39923f9001afbbfcc70347cfd50f0b8692))
+
 # [1.3.0](https://github.com/henchoznoe/NexTemplate/compare/v1.2.3...v1.3.0) (2026-05-28)
 
 
