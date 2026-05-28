@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/henchoznoe/NexTemplate/compare/v1.4.1...v1.4.2) (2026-05-28)
+
+
+### Bug Fixes
+
+* disable Renovate dependency dashboard ([fb5c50f](https://github.com/henchoznoe/NexTemplate/commit/fb5c50ff6f5fb13a9dec82785cc79faa6e915d2c))
+
 ## [1.4.1](https://github.com/henchoznoe/NexTemplate/compare/v1.4.0...v1.4.1) (2026-05-28)
 
 
