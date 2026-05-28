@@ -2,7 +2,6 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import type { PropsWithChildren } from 'react'
-import { Footer } from '@/components/footer'
 import { ThemeProvider } from '@/components/theme-provider'
 import { siteConfig } from '@/lib/config/site'
 import { cn } from '@/lib/utils/cn'
@@ -33,10 +32,7 @@ const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.variable, 'font-sans antialiased')}>
-        <ThemeProvider>
-          {children}
-          <Footer />
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
       </body>
     </html>

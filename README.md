@@ -139,9 +139,8 @@ When you create a new project from this template, follow these steps:
 
 ### 1. Rename the project
 
-- Update `name`, `description`, `homepage`, and `repository` in `package.json`
+- Update `name` and `description` in `package.json`
 - Update site metadata in `lib/config/site.ts`
-- Update copyright in `components/footer.tsx`
 
 ### 2. Configure environment
 

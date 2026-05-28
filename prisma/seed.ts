@@ -19,7 +19,7 @@ const main = async () => {
 
   try {
     // seed here
-    console.log('\nSeed completed successfully!')
+    console.log('Seed completed successfully!')
   } catch (error) {
     console.error('Seed failed:', error)
     throw error
