@@ -1,10 +1,17 @@
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  # ── Local development database ─────────────────────────────────────────────
+  db:
+    image: postgres:17-alpine
+    container_name: db_nextemplate
     ports:
-      - '3000:3000'
+      - '5433:5432'
     environment:
-      - NODE_ENV=production
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: nextemplate
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     restart: unless-stopped
+
+volumes:
+  pgdata:

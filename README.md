@@ -26,6 +26,9 @@ Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode,
 | Framework | Next.js 16 (App Router, RSC) |
 | UI | React 19, Tailwind CSS v4, shadcn/ui (new-york) |
 | Language | TypeScript 6 (strict mode) |
+| Auth | Better Auth (GitHub OAuth) |
+| Database | Prisma 7 + PostgreSQL |
+| Testing | Vitest, @vitest/coverage-v8, React Testing Library |
 | Theme | next-themes (light/dark/system) |
 | Validation | Zod (env + runtime schemas) |
 | Icons | Lucide React |
@@ -33,14 +36,15 @@ Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode,
 | Release | Semantic Release, Conventional Commits |
 | CI/CD | GitHub Actions |
 | Analytics | Vercel Analytics |
-| Hosting | Vercel (default), Docker/Kubernetes (alternative) |
+| Hosting | Vercel |
 
 ## Project Structure
 
 ```text
 NexTemplate/
 ├── app/                    # Next.js App Router pages and layouts
-│   ├── api/health/         # Health check endpoint (K8s probes)
+│   ├── api/auth/[...all]/  # Better Auth catch-all API route
+│   ├── api/health/         # Health check endpoint
 │   ├── globals.css         # Tailwind v4 theme (light + dark)
 │   ├── layout.tsx          # Root layout with providers
 │   ├── manifest.ts         # PWA manifest
@@ -56,23 +60,30 @@ NexTemplate/
 ├── lib/
 │   ├── actions/            # Server Actions (mutations)
 │   ├── config/site.ts      # Central site metadata
+│   ├── core/auth.ts        # Better Auth server config
+│   ├── core/auth-client.ts # Better Auth React client
+│   ├── core/prisma.ts      # Prisma singleton
 │   ├── core/env.ts         # Env validation (Zod)
 │   ├── hooks/              # Custom React hooks
 │   ├── services/           # Read-side data access (cached)
 │   ├── types/              # TypeScript interfaces
 │   ├── utils/              # Helper functions (cn, version, commit hash)
 │   └── validations/        # Zod schemas
-├── k8s/                    # Kubernetes manifests (deployment, service, ingress)
+├── prisma/
+│   ├── schema.prisma       # Database schema (Better Auth models)
+│   ├── seed.ts             # Database seed script
+│   ├── migrations/         # Prisma migrations
+│   └── generated/prisma/   # Generated Prisma client (gitignored)
+├── tests/                  # Vitest test files
 ├── proxy.ts                # Edge middleware
-├── Dockerfile              # Multi-stage production build
-├── docker-compose.yml      # Local Docker testing
+├── docker-compose.yml      # PostgreSQL local database
 ├── public/
 │   ├── assets/             # Images and static media
 │   └── fonts/              # Custom font files
 ├── .github/
 │   ├── workflows/          # CI, Release, Dependency Review, PR Title
 │   └── dependabot.yml      # Automated dependency updates
-└── [config files]          # TypeScript, Biome, Lefthook, etc.
+└── [config files]          # TypeScript, Biome, Lefthook, Vitest, Prisma, etc.
 ```
 
 ## Quick Start
@@ -89,6 +100,34 @@ git clone https://github.com/henchoznoe/NexTemplate.git
 cd NexTemplate
 pnpm install
 cp .env.example .env
+```
+
+### Database Setup
+
+Start a local PostgreSQL instance with Docker:
+
+```bash
+docker compose up db -d
+```
+
+Generate the Prisma client and apply the schema:
+
+```bash
+pnpm db:generate
+pnpm db:push        # Apply schema to database
+pnpm db:seed         # Optional: seed with sample data
+```
+
+### Authentication Setup
+
+1. Create a GitHub OAuth app at [github.com/settings/developers](https://github.com/settings/developers)
+2. Set the callback URL to `http://localhost:3000/api/auth/callback/github`
+3. Copy the Client ID and Client Secret to your `.env` file
+4. Generate a secret: `openssl rand -base64 32` and set `BETTER_AUTH_SECRET`
+
+### Start Development
+
+```bash
 pnpm dev
 ```
 
@@ -100,20 +139,18 @@ When you create a new project from this template, follow these steps:
 
 ### 1. Rename the project
 
-- Update `name`, `description`, `homepage`, and `repository` in `package.json`
+- Update `name` and `description` in `package.json`
 - Update site metadata in `lib/config/site.ts`
-- Update copyright in `components/footer.tsx`
 
 ### 2. Configure environment
 
 - Copy `.env.example` to `.env` and fill in values
+- Set up `DATABASE_URL`, `BETTER_AUTH_SECRET`, and GitHub OAuth credentials
 - Add new env vars to `lib/core/env.ts` schema and `.env.example`
 
 ### 3. Configure hosting
 
-**Vercel (default)** — no changes needed. Push to GitHub and import in Vercel.
-
-**Docker/Kubernetes** — see [Deployment](#deployment) section below.
+**Vercel** — no changes needed. Push to GitHub and import in Vercel.
 
 ### 4. Set up CI/CD
 
@@ -133,9 +170,6 @@ When you create a new project from this template, follow these steps:
 
 | Need | Recommendation |
 | --- | --- |
-| Authentication | [Better Auth](https://www.better-auth.com/) or [NextAuth.js](https://next-auth.js.org/) |
-| Database | [Prisma](https://www.prisma.io/) with PostgreSQL |
-| Testing | [Vitest](https://vitest.dev/) with `@vitest/coverage-v8` |
 | Email | [React Email](https://react.email/) + [Resend](https://resend.com/) |
 | Payments | [Stripe](https://stripe.com/) |
 | Logging | [Pino](https://getpino.io/) or [Winston](https://github.com/winstonjs/winston) for structured logging |
@@ -146,71 +180,44 @@ When you create a new project from this template, follow these steps:
 | Command | Description |
 | --- | --- |
 | `pnpm dev` | Start development server |
-| `pnpm build` | Production build |
+| `pnpm build` | Production build (includes Prisma generate) |
 | `pnpm start` | Start production server |
 | `pnpm check` | Biome lint + format (auto-fix) |
 | `pnpm check:all` | Biome + knip (dead code) |
-| `pnpm check:com` | Full validation: Biome + knip + tsc + next build |
+| `pnpm check:com` | Full validation: Biome + knip + Prisma generate + tsc + next build |
 | `pnpm knip` | Dead code / unused dependency detection |
 | `pnpm analyze` | Bundle size analysis (opens report) |
 | `pnpm lint` | Biome lint only |
 | `pnpm format` | Biome format only |
+| `pnpm test` | Run tests |
+| `pnpm test:watch` | Run tests in watch mode |
+| `pnpm test:coverage` | Run tests with coverage |
+| `pnpm db:generate` | Generate Prisma client |
+| `pnpm db:migrate` | Create and apply migration |
+| `pnpm db:push` | Push schema to database (no migration) |
+| `pnpm db:seed` | Run seed script |
+| `pnpm db:studio` | Open Prisma Studio |
 
 ## Deployment
 
-### Vercel (Default)
+### Vercel
 
-Push to GitHub and import in [Vercel](https://vercel.com). Zero configuration needed — the project is pre-configured for Vercel deployment.
+Push to GitHub and import in [Vercel](https://vercel.com).
 
-### Docker
+**Environment variables to set in Vercel project settings:**
 
-To deploy with Docker instead of Vercel:
+| Variable | Description |
+| --- | --- |
+| `DATABASE_URL` | PostgreSQL connection string (e.g. Vercel Postgres, Neon, Supabase) |
+| `BETTER_AUTH_SECRET` | Auth secret — generate with `openssl rand -base64 32` |
+| `BETTER_AUTH_URL` | Production URL (e.g. `https://your-app.vercel.app`) |
+| `NEXT_PUBLIC_APP_URL` | Production URL (same as above) |
+| `GITHUB_CLIENT_ID` | GitHub OAuth app client ID |
+| `GITHUB_CLIENT_SECRET` | GitHub OAuth app client secret |
 
-**1. Build and run:**
+**Auto-injected by Vercel (no manual setup needed):**
 
-> Standalone output is automatically enabled via the `DOCKER_BUILD=true` environment variable set in the Dockerfile — no code changes needed.
-
-```bash
-# Using docker-compose (recommended for local testing)
-docker compose up --build
-
-# Or manually
-docker build -t nextemplate .
-docker run -p 3000:3000 nextemplate
-```
-
-**2. Optional — Remove Vercel-specific code:**
-
-- Remove `@vercel/analytics` from `package.json` and its usage in `app/layout.tsx`
-- Remove `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA` from `next.config.ts` (or replace with your own build-time variable)
-
-### Kubernetes
-
-After building your Docker image and pushing to a container registry:
-
-**1. Update the image** in `k8s/deployment.yaml`:
-
-```yaml
-image: your-registry.io/nextemplate:latest
-```
-
-**2. Update the domain** in `k8s/ingress.yaml`:
-
-```yaml
-host: your-domain.com
-```
-
-**3. Apply manifests:**
-
-```bash
-kubectl apply -f k8s/
-```
-
-The K8s setup includes:
-
-- **Deployment** — 2 replicas with resource limits, liveness/readiness probes on `/api/health`
-- **Service** — ClusterIP exposing port 80
-- **Ingress** — Nginx ingress controller routing
+`VERCEL_ENV`, `VERCEL_PROJECT_PRODUCTION_URL`, `VERCEL_GIT_COMMIT_SHA`
 
 ## Quality Workflow
 
@@ -218,6 +225,8 @@ The K8s setup includes:
 
 ```text
 gitleaks (secret scanning)
+  ↓
+prisma generate (generate client)
   ↓
 tsc --noEmit (type-check)
   ↓
@@ -228,6 +237,8 @@ knip (dead code)
 next build (production build)
   ↓
 pnpm audit --audit-level=high (security)
+  ↓
+vitest (tests + coverage) [parallel job]
 ```
 
 ### Additional Workflows

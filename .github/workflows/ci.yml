@@ -35,7 +35,63 @@ jobs:
         run: gitleaks detect --source . --verbose --redact
 
   ci:
-    name: Lint, Type-check & Audit
+    name: Lint, Type-check & Build
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: 'postgresql://ci:ci@localhost:5432/ci'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.node-version'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm exec prisma generate
+
+      - name: Type-check
+        run: pnpm exec tsc --noEmit
+
+      - name: Format & Lint check
+        run: pnpm exec biome check .
+
+      - name: Dead code analysis
+        run: pnpm exec knip
+
+      - name: Cache Next.js build
+        uses: actions/cache@v5
+        with:
+          path: .next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+
+      - name: Build
+        run: pnpm exec next build
+        env:
+          BETTER_AUTH_SECRET: 'this_is_a_ci_build_placeholder_only'
+          BETTER_AUTH_URL: 'http://localhost:3000'
+          NEXT_PUBLIC_APP_URL: 'http://localhost:3000'
+          GITHUB_CLIENT_ID: 'ci-placeholder'
+          GITHUB_CLIENT_SECRET: 'ci-placeholder'
+
+      - name: Security audit
+        run: pnpm audit --audit-level=high
+
+  test:
+    name: Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -56,25 +112,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Type-check
-        run: pnpm exec tsc --noEmit
+      - name: Generate Prisma client
+        run: pnpm exec prisma generate
+        env:
+          DATABASE_URL: 'postgresql://ci:ci@localhost:5432/ci'
 
-      - name: Format & Lint check
-        run: pnpm exec biome check .
-
-      - name: Dead code analysis
-        run: pnpm exec knip
-
-      - name: Cache Next.js build
-        uses: actions/cache@v5
-        with:
-          path: .next/cache
-          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
-          restore-keys: |
-            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
-
-      - name: Build
-        run: pnpm build
-
-      - name: Security audit
-        run: pnpm audit --audit-level=high
+      - name: Run tests
+        run: pnpm test:coverage

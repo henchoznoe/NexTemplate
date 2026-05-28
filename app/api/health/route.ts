@@ -1,6 +1,6 @@
 import process from 'node:process'
 import { env } from '@/lib/core/env'
-import { getAppVersion } from '@/lib/utils/app-version'
+import { getAppVersion } from '@/lib/utils/app'
 import { getCommitHash } from '@/lib/utils/commit-hash'
 
 const startedAt = new Date()

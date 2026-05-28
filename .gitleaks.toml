@@ -1,0 +1,6 @@
+[allowlist]
+description = "Allow CI/test placeholder values (not real secrets)"
+regexTarget = "line"
+regexes = [
+  '''placeholder''',
+]

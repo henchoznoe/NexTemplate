@@ -1,11 +1,9 @@
 import type { MetadataRoute } from 'next'
 import { siteConfig } from '@/lib/config/site'
-import { env } from '@/lib/core/env'
+import { isProd } from '@/lib/core/env'
 
 const robots = (): MetadataRoute.Robots => {
-  const isProduction = env.VERCEL_ENV === 'production'
-
-  if (!isProduction) {
+  if (!isProd) {
     return { rules: [{ userAgent: '*', disallow: '/' }] }
   }
 
