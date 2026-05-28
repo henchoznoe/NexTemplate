@@ -6,7 +6,7 @@ const { combine, timestamp, errors, json, colorize, printf } = format
 interface LogInfo {
   timestamp?: string
   level: string
-  message: string
+  message: unknown
   stack?: string
   [key: string]: unknown
 }
