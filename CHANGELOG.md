@@ -1,3 +1,11 @@
+## [1.4.1](https://github.com/henchoznoe/NexTemplate/compare/v1.4.0...v1.4.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* add minimumReleaseAge to Renovate config ([2eeb74a](https://github.com/henchoznoe/NexTemplate/commit/2eeb74a7502f6057441466ab3104c097cbb43147))
+* set minimumReleaseAge to 1 day ([ef47766](https://github.com/henchoznoe/NexTemplate/commit/ef4776676cb15a60431982ad887023c2cfcc3f39))
+
 # [1.4.0](https://github.com/henchoznoe/NexTemplate/compare/v1.3.0...v1.4.0) (2026-05-28)
 
 
