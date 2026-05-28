@@ -1,3 +1,31 @@
+## [1.4.5](https://github.com/henchoznoe/NexTemplate/compare/v1.4.4...v1.4.5) (2026-05-28)
+
+
+### Bug Fixes
+
+* reset schedule to 0-3 everyday ([4f3ec48](https://github.com/henchoznoe/NexTemplate/commit/4f3ec481ab32549181056576c4603ec2d6f6803e))
+
+## [1.4.4](https://github.com/henchoznoe/NexTemplate/compare/v1.4.3...v1.4.4) (2026-05-28)
+
+
+### Bug Fixes
+
+* set renovate to any time to test ([b2284b2](https://github.com/henchoznoe/NexTemplate/commit/b2284b281a1cbc36c808f250e0bf8789593167f3))
+
+## [1.4.3](https://github.com/henchoznoe/NexTemplate/compare/v1.4.2...v1.4.3) (2026-05-28)
+
+
+### Bug Fixes
+
+* set renovate every 5 minutes to test ([f5868b6](https://github.com/henchoznoe/NexTemplate/commit/f5868b6a1fb2347b9fcd98e24a819ad75160e183))
+
+## [1.4.2](https://github.com/henchoznoe/NexTemplate/compare/v1.4.1...v1.4.2) (2026-05-28)
+
+
+### Bug Fixes
+
+* disable Renovate dependency dashboard ([fb5c50f](https://github.com/henchoznoe/NexTemplate/commit/fb5c50ff6f5fb13a9dec82785cc79faa6e915d2c))
+
 ## [1.4.1](https://github.com/henchoznoe/NexTemplate/compare/v1.4.0...v1.4.1) (2026-05-28)
 
 
