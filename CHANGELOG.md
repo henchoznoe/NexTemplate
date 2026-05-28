@@ -1,3 +1,10 @@
+## [1.4.4](https://github.com/henchoznoe/NexTemplate/compare/v1.4.3...v1.4.4) (2026-05-28)
+
+
+### Bug Fixes
+
+* set renovate to any time to test ([b2284b2](https://github.com/henchoznoe/NexTemplate/commit/b2284b281a1cbc36c808f250e0bf8789593167f3))
+
 ## [1.4.3](https://github.com/henchoznoe/NexTemplate/compare/v1.4.2...v1.4.3) (2026-05-28)
 
 
