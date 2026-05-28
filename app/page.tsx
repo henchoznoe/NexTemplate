@@ -1,4 +1,5 @@
 import { AuthSection } from '@/components/auth-section'
+import { DemoActionButton } from '@/components/demo-action-button'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { getAppAuthor, getAppVersion } from '@/lib/utils/app'
 import { getCommitHash } from '@/lib/utils/commit-hash'
@@ -16,7 +17,10 @@ const HomePage = () => {
         v{version} &middot; {commitHash}
       </p>
       <AuthSection />
-      <ThemeToggle />
+      <div className="flex items-center gap-2">
+        <ThemeToggle />
+        <DemoActionButton />
+      </div>
     </main>
   )
 }
