@@ -1,3 +1,16 @@
+# [1.5.0](https://github.com/henchoznoe/NexTemplate/compare/v1.4.5...v1.5.0) (2026-05-28)
+
+
+### Bug Fixes
+
+* add minimumReleaseAge to Renovate config ([638f819](https://github.com/henchoznoe/NexTemplate/commit/638f819c61abbeace2fdb3071841a495e1aa0a1f))
+* set minimumReleaseAge to 1 day ([5a39c2a](https://github.com/henchoznoe/NexTemplate/commit/5a39c2a4e8d1a44e6572e2c233542ccd3d417d0d))
+
+
+### Features
+
+* migrate from renovate to dependabot ([4afcad5](https://github.com/henchoznoe/NexTemplate/commit/4afcad5d333b6ba0d2ee583c6fc1ba50cd81cfb6))
+
 ## [1.4.5](https://github.com/henchoznoe/NexTemplate/compare/v1.4.4...v1.4.5) (2026-05-28)
 
 
