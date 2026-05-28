@@ -51,10 +51,13 @@ pnpm db:studio        # Open Prisma Studio
 - `lib/config/` — Constants and named configuration
 - `lib/config/site.ts` — Central site metadata (name, description, URL)
 - `lib/core/` — Infrastructure singletons (auth, db, env, logger)
+- `lib/core/logger.ts` — Winston structured logger (JSON in prod, colorized in dev)
 - `lib/core/auth.ts` — Better Auth server config (GitHub OAuth, Prisma adapter)
 - `lib/core/auth-client.ts` — Better Auth React client hooks
 - `lib/core/prisma.ts` — Prisma client singleton (hot-reload safe)
 - `lib/core/env.ts` — Environment variable validation (Zod)
+- `lib/types/action.ts` — `ActionResult` type for Server Actions
+- `lib/utils/action-toast.ts` — `showActionToast()` helper for Sonner notifications
 - `prisma/generated/prisma/` — Generated Prisma client (gitignored)
 - `prisma/schema.prisma` — Database schema (Better Auth models)
 - `tests/` — Vitest test files
@@ -106,7 +109,8 @@ pnpm db:studio        # Open Prisma Studio
 
 ## Verification
 
-- CI order: `prisma generate` → `tsc --noEmit` → `biome check .` → `knip` → `next build` → `pnpm audit --audit-level=high` + `vitest` (parallel job)
+- CI order: `prisma generate` → `tsc --noEmit` → `biome check .` → `knip` → `next build` → `pnpm audit --audit-level=high` + `vitest` + Codecov upload (parallel job)
+- Coverage threshold: 90% (enforced by Codecov)
 - `release.yml` reuses `ci.yml` via `workflow_call`. Node version pinned in `.node-version`.
 - Additional workflows: `dependency-review.yml` (blocks vulnerable deps in PRs), `pr-title.yml` (enforces Conventional Commits).
 - Pre-commit runs `biome check --write` on staged `*.{ts,tsx,css}` via lefthook.
@@ -129,7 +133,7 @@ Semantic-release on `main` branch via GitHub Actions. Conventional Commits requi
 - Zod schemas go in `lib/validations/`
 - TypeScript types go in `lib/types/`
 - Constants go in `lib/config/`
-- Infrastructure (auth, db, env) go in `lib/core/`
+- Infrastructure (auth, db, env, logger) go in `lib/core/`
 - Custom hooks go in `lib/hooks/`
 - Utilities go in `lib/utils/`
 - Static assets go in `public/assets/`
