@@ -3,6 +3,7 @@
 [![CI](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml/badge.svg)](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/henchoznoe/NexTemplate/graph/badge.svg)](https://codecov.io/gh/henchoznoe/NexTemplate)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/henchoznoe/NexTemplate)
+[![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen?logo=renovatebot)](https://renovatebot.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat&logo=next.js)](https://nextjs.org/)
@@ -35,7 +36,7 @@ Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode,
 | Notifications | Sonner (toast) |
 | Validation | Zod (env + runtime schemas) |
 | Icons | Lucide React |
-| Quality | Biome, knip, lefthook, commitlint |
+| Quality | Biome, knip, lefthook, commitlint, Renovate |
 | Release | Semantic Release, Conventional Commits |
 | CI/CD | GitHub Actions |
 | Analytics | Vercel Analytics |
@@ -86,8 +87,8 @@ NexTemplate/
 │   ├── assets/             # Images and static media
 │   └── fonts/              # Custom font files
 ├── .github/
-│   ├── workflows/          # CI, Release, Dependency Review, PR Title
-│   └── dependabot.yml      # Automated dependency updates
+│   └── workflows/          # CI, Release, Dependency Review, PR Title
+├── renovate.json            # Renovate auto-merge config
 └── [config files]          # TypeScript, Biome, Lefthook, Vitest, Prisma, etc.
 ```
 
@@ -252,6 +253,10 @@ codecov upload (coverage report)
 - **dependency-review.yml** — Blocks PRs introducing high-severity vulnerable dependencies
 - **pr-title.yml** — Enforces Conventional Commits format on PR titles
 - **release.yml** — Automated versioning and changelog via semantic-release
+
+### Dependency Management
+
+[Renovate](https://github.com/apps/renovate) automatically creates PRs for dependency updates on the `develop` branch every Monday. Minor and patch updates are **auto-merged** when CI passes. Major updates require manual review. GitHub Actions updates are grouped together.
 
 ### Pre-commit Hook
 

@@ -113,6 +113,7 @@ pnpm db:studio        # Open Prisma Studio
 - Coverage threshold: 90% (enforced by Codecov)
 - `release.yml` reuses `ci.yml` via `workflow_call`. Node version pinned in `.node-version`.
 - Additional workflows: `dependency-review.yml` (blocks vulnerable deps in PRs), `pr-title.yml` (enforces Conventional Commits).
+- **Renovate**: auto-merges minor/patch dependency PRs on `develop` when CI passes. Major updates require manual review. Config in `renovate.json`.
 - Pre-commit runs `biome check --write` on staged `*.{ts,tsx,css}` via lefthook.
 - Commit messages validated via commitlint (Conventional Commits format required).
 
