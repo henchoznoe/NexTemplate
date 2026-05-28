@@ -256,7 +256,7 @@ codecov upload (coverage report)
 
 ### Dependency Management
 
-[Renovate](https://github.com/apps/renovate) automatically creates PRs for dependency updates on the `develop` branch every Monday. Minor and patch updates are **auto-merged** when CI passes. Major updates require manual review. GitHub Actions updates are grouped together.
+[Renovate](https://github.com/apps/renovate) automatically creates PRs for dependency updates on `main` every Monday. Minor and patch updates are **auto-merged** when CI passes (`chore(deps):` commits do not trigger semantic-release). Major updates require manual review. GitHub Actions updates are grouped together.
 
 ### Pre-commit Hook
 
