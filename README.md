@@ -1,6 +1,7 @@
 <div align="center">
 
 [![CI](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml/badge.svg)](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/henchoznoe/NexTemplate/graph/badge.svg)](https://codecov.io/gh/henchoznoe/NexTemplate)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/henchoznoe/NexTemplate)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -28,8 +29,10 @@ Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode,
 | Language | TypeScript 6 (strict mode) |
 | Auth | Better Auth (GitHub OAuth) |
 | Database | Prisma 7 + PostgreSQL |
-| Testing | Vitest, @vitest/coverage-v8, React Testing Library |
+| Testing | Vitest, @vitest/coverage-v8, React Testing Library, Codecov |
 | Theme | next-themes (light/dark/system) |
+| Logging | Winston (structured) |
+| Notifications | Sonner (toast) |
 | Validation | Zod (env + runtime schemas) |
 | Icons | Lucide React |
 | Quality | Biome, knip, lefthook, commitlint |
@@ -63,11 +66,13 @@ NexTemplate/
 │   ├── core/auth.ts        # Better Auth server config
 │   ├── core/auth-client.ts # Better Auth React client
 │   ├── core/prisma.ts      # Prisma singleton
+│   ├── core/logger.ts      # Winston structured logger
 │   ├── core/env.ts         # Env validation (Zod)
 │   ├── hooks/              # Custom React hooks
 │   ├── services/           # Read-side data access (cached)
 │   ├── types/              # TypeScript interfaces
-│   ├── utils/              # Helper functions (cn, version, commit hash)
+│   ├── types/action.ts     # Server Action result type
+│   ├── utils/              # Helper functions (cn, version, commit hash, action-toast)
 │   └── validations/        # Zod schemas
 ├── prisma/
 │   ├── schema.prisma       # Database schema (Better Auth models)
@@ -172,7 +177,6 @@ When you create a new project from this template, follow these steps:
 | --- | --- |
 | Email | [React Email](https://react.email/) + [Resend](https://resend.com/) |
 | Payments | [Stripe](https://stripe.com/) |
-| Logging | [Pino](https://getpino.io/) or [Winston](https://github.com/winstonjs/winston) for structured logging |
 | Error monitoring | [Sentry](https://sentry.io/) for error tracking and performance monitoring |
 
 ## Development Commands
@@ -239,6 +243,8 @@ next build (production build)
 pnpm audit --audit-level=high (security)
   ↓
 vitest (tests + coverage) [parallel job]
+  ↓
+codecov upload (coverage report)
 ```
 
 ### Additional Workflows

@@ -17,11 +17,15 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
+      include: ['lib/**/*.ts'],
       exclude: [
         'prisma/generated/**',
         'node_modules/**',
         'test/**',
         '**/*.config.ts',
+        'lib/core/auth.ts',
+        'lib/core/auth-client.ts',
+        'lib/core/prisma.ts',
       ],
     },
   },

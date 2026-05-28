@@ -18,6 +18,17 @@ const serverSchema = z.object({
   VERCEL_GIT_COMMIT_SHA: z.string().optional(), // Injected by Vercel
 })
 
+interface EnvIssue {
+  path: PropertyKey[]
+  message: string
+}
+
+export const formatEnvErrors = (issues: EnvIssue[]): string => {
+  return issues
+    .map(issue => `  - ${issue.path.join('.')}: ${issue.message}`)
+    .join('\n')
+}
+
 const isServer = typeof window === 'undefined'
 
 const parsedClient = clientSchema.safeParse({
@@ -32,9 +43,7 @@ if (!parsedClient.success || !parsedServer.success) {
   const clientErrors = parsedClient.success ? [] : parsedClient.error.issues
   const serverErrors = parsedServer.success ? [] : parsedServer.error.issues
   const allErrors = [...clientErrors, ...serverErrors]
-  const summary = allErrors
-    .map(issue => `  - ${issue.path.join('.')}: ${issue.message}`)
-    .join('\n')
+  const summary = formatEnvErrors(allErrors)
 
   console.error(`Invalid environment configuration:\n${summary}`)
 
