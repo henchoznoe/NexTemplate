@@ -3,7 +3,6 @@
 [![CI](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml/badge.svg)](https://github.com/henchoznoe/NexTemplate/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/henchoznoe/NexTemplate/graph/badge.svg)](https://codecov.io/gh/henchoznoe/NexTemplate)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/henchoznoe/NexTemplate)
-[![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen?logo=renovatebot)](https://renovatebot.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat&logo=next.js)](https://nextjs.org/)
@@ -36,7 +35,7 @@ Stop wasting hours on boilerplate. NexTemplate gives you TypeScript strict mode,
 | Notifications | Sonner (toast) |
 | Validation | Zod (env + runtime schemas) |
 | Icons | Lucide React |
-| Quality | Biome, knip, lefthook, commitlint, Renovate |
+| Quality | Biome, knip, lefthook, commitlint |
 | Release | Semantic Release, Conventional Commits |
 | CI/CD | GitHub Actions |
 | Analytics | Vercel Analytics |
@@ -87,8 +86,8 @@ NexTemplate/
 │   ├── assets/             # Images and static media
 │   └── fonts/              # Custom font files
 ├── .github/
-│   └── workflows/          # CI, Release, Dependency Review, PR Title
-├── renovate.json            # Renovate auto-merge config
+│   ├── workflows/          # CI, Release, Dependency Review, PR Title
+│   └── dependabot.yml      # Automated dependency updates
 └── [config files]          # TypeScript, Biome, Lefthook, Vitest, Prisma, etc.
 ```
 
@@ -256,7 +255,7 @@ codecov upload (coverage report)
 
 ### Dependency Management
 
-[Renovate](https://github.com/apps/renovate) automatically creates PRs for dependency updates on `main` daily (before 4 AM). Minor and patch updates are **auto-merged** when CI passes (`chore(deps):` commits do not trigger semantic-release). Major updates require manual review. GitHub Actions updates are grouped together.
+[Dependabot](https://docs.github.com/en/code-security/dependabot) automatically creates PRs for dependency updates every Monday. npm and GitHub Actions dependencies are each grouped into a single PR. Config in `.github/dependabot.yml`.
 
 ### Pre-commit Hook
 
