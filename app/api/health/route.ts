@@ -1,5 +1,6 @@
 import process from 'node:process'
 import { env } from '@/lib/core/env'
+import { logger } from '@/lib/core/logger'
 import prisma from '@/lib/core/prisma'
 import { getAppVersion } from '@/lib/utils/app'
 import { getCommitHash } from '@/lib/utils/commit-hash'
@@ -14,7 +15,8 @@ const checkDatabase = async (): Promise<'connected' | 'disconnected'> => {
   try {
     await prisma.$queryRawUnsafe('SELECT 1')
     return 'connected'
-  } catch {
+  } catch (error) {
+    logger.error('Health check: database unreachable', { error })
     return 'disconnected'
   }
 }
