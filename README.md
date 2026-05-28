@@ -62,9 +62,8 @@ NexTemplate/
 │   ├── config/site.ts      # Central site metadata
 │   ├── core/auth.ts        # Better Auth server config
 │   ├── core/auth-client.ts # Better Auth React client
-│   ├── core/db.ts          # Prisma singleton
+│   ├── core/prisma.ts      # Prisma singleton
 │   ├── core/env.ts         # Env validation (Zod)
-│   ├── generated/prisma/   # Generated Prisma client (gitignored)
 │   ├── hooks/              # Custom React hooks
 │   ├── services/           # Read-side data access (cached)
 │   ├── types/              # TypeScript interfaces
@@ -73,7 +72,8 @@ NexTemplate/
 ├── prisma/
 │   ├── schema.prisma       # Database schema (Better Auth models)
 │   ├── seed.ts             # Database seed script
-│   └── migrations/         # Prisma migrations
+│   ├── migrations/         # Prisma migrations
+│   └── generated/prisma/   # Generated Prisma client (gitignored)
 ├── tests/                  # Vitest test files
 ├── proxy.ts                # Edge middleware
 ├── docker-compose.yml      # PostgreSQL local database
@@ -203,7 +203,22 @@ When you create a new project from this template, follow these steps:
 
 ### Vercel
 
-Push to GitHub and import in [Vercel](https://vercel.com). Zero configuration needed — the project is pre-configured for Vercel deployment.
+Push to GitHub and import in [Vercel](https://vercel.com).
+
+**Environment variables to set in Vercel project settings:**
+
+| Variable | Description |
+| --- | --- |
+| `DATABASE_URL` | PostgreSQL connection string (e.g. Vercel Postgres, Neon, Supabase) |
+| `BETTER_AUTH_SECRET` | Auth secret — generate with `openssl rand -base64 32` |
+| `BETTER_AUTH_URL` | Production URL (e.g. `https://your-app.vercel.app`) |
+| `NEXT_PUBLIC_APP_URL` | Production URL (same as above) |
+| `GITHUB_CLIENT_ID` | GitHub OAuth app client ID |
+| `GITHUB_CLIENT_SECRET` | GitHub OAuth app client secret |
+
+**Auto-injected by Vercel (no manual setup needed):**
+
+`VERCEL_ENV`, `VERCEL_PROJECT_PRODUCTION_URL`, `VERCEL_GIT_COMMIT_SHA`
 
 ## Quality Workflow
 

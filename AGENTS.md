@@ -18,7 +18,7 @@ This file provides guidance to AI coding agents (Claude Code, Copilot, Cursor, e
   - `lib/validations/` — Zod schemas
   - `proxy.ts` — Edge middleware
 - **Auth**: Better Auth with GitHub OAuth (`lib/core/auth.ts`, `lib/core/auth-client.ts`)
-- **Database**: Prisma 7 + PostgreSQL (`lib/core/db.ts`, `prisma/schema.prisma`)
+- **Database**: Prisma 7 + PostgreSQL (`lib/core/prisma.ts`, `prisma/schema.prisma`)
 - **Testing**: Vitest + React Testing Library (`tests/`)
 
 ## Commands
@@ -53,9 +53,9 @@ pnpm db:studio        # Open Prisma Studio
 - `lib/core/` — Infrastructure singletons (auth, db, env, logger)
 - `lib/core/auth.ts` — Better Auth server config (GitHub OAuth, Prisma adapter)
 - `lib/core/auth-client.ts` — Better Auth React client hooks
-- `lib/core/db.ts` — Prisma client singleton (hot-reload safe)
+- `lib/core/prisma.ts` — Prisma client singleton (hot-reload safe)
 - `lib/core/env.ts` — Environment variable validation (Zod)
-- `lib/generated/prisma/` — Generated Prisma client (gitignored)
+- `prisma/generated/prisma/` — Generated Prisma client (gitignored)
 - `prisma/schema.prisma` — Database schema (Better Auth models)
 - `tests/` — Vitest test files
 - `lib/hooks/` — Custom React hooks
@@ -93,7 +93,7 @@ pnpm db:studio        # Open Prisma Studio
 - `cn()` from `@/lib/utils/cn` for all Tailwind class merging (clsx + tailwind-merge)
 - `siteConfig` from `@/lib/config/site` for site name, description, URL
 - `env` from `@/lib/core/env` for validated environment variables
-- Vercel env vars exposed to client via `next.config.ts` `env` block (e.g., `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA`)
+- Vercel env vars (`VERCEL_ENV`, `VERCEL_PROJECT_PRODUCTION_URL`, `VERCEL_GIT_COMMIT_SHA`) are auto-injected and validated as optional in `lib/core/env.ts`
 - Path alias: `@/*` maps to project root
 - Component props: declare an explicit `interface [Component]Props` for every component that accepts props. Wrap with `Readonly<>` at the function signature:
 
