@@ -11,13 +11,13 @@ const formatBytes = (bytes: number): string => {
   return `${(bytes / 1024 / 1024).toFixed(2)} MB`
 }
 
-const checkDatabase = async (): Promise<'connected' | 'disconnected'> => {
+const checkDatabase = async (): Promise<boolean> => {
   try {
     await prisma.$queryRawUnsafe('SELECT 1')
-    return 'connected'
+    return true
   } catch (error) {
     logger.error('Health check: database unreachable', { error })
-    return 'disconnected'
+    return false
   }
 }
 
@@ -25,7 +25,7 @@ export const GET = async () => {
   const memoryUsage = process.memoryUsage()
   const uptimeSeconds = Math.floor(process.uptime())
   const database = await checkDatabase()
-  const status = database === 'connected' ? 'ok' : 'degraded'
+  const status = database ? 'ok' : 'degraded'
 
   return Response.json(
     {
@@ -44,6 +44,6 @@ export const GET = async () => {
         heapTotal: formatBytes(memoryUsage.heapTotal),
       },
     },
-    { status: status === 'ok' ? 200 : 503 },
+    { status: database ? 200 : 503 },
   )
 }
