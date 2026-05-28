@@ -1,3 +1,10 @@
+## [1.4.5](https://github.com/henchoznoe/NexTemplate/compare/v1.4.4...v1.4.5) (2026-05-28)
+
+
+### Bug Fixes
+
+* reset schedule to 0-3 everyday ([4f3ec48](https://github.com/henchoznoe/NexTemplate/commit/4f3ec481ab32549181056576c4603ec2d6f6803e))
+
 ## [1.4.4](https://github.com/henchoznoe/NexTemplate/compare/v1.4.3...v1.4.4) (2026-05-28)
 
 
