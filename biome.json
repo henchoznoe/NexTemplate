@@ -14,11 +14,12 @@
       "app/**",
       "components/**",
       "lib/**",
+      "tests/**",
       "next.config.ts",
-      "proxy.ts",
-      "!**/package.json",
       "biome.json",
       "tsconfig.json",
+      "prisma.config.ts",
+      "prisma/seed.ts",
       "commitlint.config.ts"
     ]
   },
