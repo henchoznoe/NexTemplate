@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/henchoznoe/NexTemplate/compare/v1.5.0...v1.5.1) (2026-06-08)
+
+
+### Bug Fixes
+
+* update CI workflow to allow lockfile updates for Dependabot dependencies ([81d83c0](https://github.com/henchoznoe/NexTemplate/commit/81d83c01005ff9f6f77029b872ff8da27949d249))
+
 # [1.5.0](https://github.com/henchoznoe/NexTemplate/compare/v1.4.5...v1.5.0) (2026-05-28)
 
 
