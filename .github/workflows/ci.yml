@@ -56,7 +56,12 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
+        if: github.actor != 'dependabot[bot]'
         run: pnpm install --frozen-lockfile
+
+      - name: Install dependencies (Dependabot)
+        if: github.actor == 'dependabot[bot]'
+        run: pnpm install --frozen-lockfile --trust-lockfile
 
       - name: Generate Prisma client
         run: pnpm exec prisma generate
@@ -110,7 +115,12 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
+        if: github.actor != 'dependabot[bot]'
         run: pnpm install --frozen-lockfile
+
+      - name: Install dependencies (Dependabot)
+        if: github.actor == 'dependabot[bot]'
+        run: pnpm install --frozen-lockfile --trust-lockfile
 
       - name: Generate Prisma client
         run: pnpm exec prisma generate
