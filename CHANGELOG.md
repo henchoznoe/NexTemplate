@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/henchoznoe/NexTemplate/compare/v1.5.1...v1.5.2) (2026-06-09)
+
+
+### Bug Fixes
+
+* resolve new volume path for postgres 18 ([b36587b](https://github.com/henchoznoe/NexTemplate/commit/b36587b7970d044d64fe067009d77bcf1716a762))
+
 ## [1.5.1](https://github.com/henchoznoe/NexTemplate/compare/v1.5.0...v1.5.1) (2026-06-08)
 
 
