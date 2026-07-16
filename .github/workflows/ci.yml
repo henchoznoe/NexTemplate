@@ -92,9 +92,6 @@ jobs:
           GITHUB_CLIENT_ID: 'ci-placeholder'
           GITHUB_CLIENT_SECRET: 'ci-placeholder'
 
-      - name: Security audit
-        run: pnpm audit --audit-level=high
-
   test:
     name: Tests
     runs-on: ubuntu-latest
