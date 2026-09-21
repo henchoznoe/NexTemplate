@@ -129,7 +129,7 @@ jobs:
 
       - name: Upload coverage to Codecov
         if: github.event_name != 'workflow_call'
-        uses: codecov/codecov-action@v7.0.0
+        uses: codecov/codecov-action@v7.1.0
         with:
           files: coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
